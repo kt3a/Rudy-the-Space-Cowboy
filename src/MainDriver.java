@@ -28,8 +28,6 @@ public class MainDriver extends Application{
 	Image cowboy;
 	Sprite sprites[];
 	
-	//spaceship things
-	Spaceship ship;
 	
 	public static void main(String[] args) 
     {
@@ -44,7 +42,6 @@ public class MainDriver extends Application{
 		grid = new Grid();
 		cowboy = new Image("rudy80.gif");
 		rudy = new Rudy(grid,100, 200,cowboy);
-		ship = new Spaceship();
 		shipCreate();
 		
 		
