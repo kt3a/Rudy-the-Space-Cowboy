@@ -140,20 +140,20 @@ public class MainDriver extends Application{
 				grid.setBlock(i,15);
 			}
 			if( i > 18 && i <45)
-			grid.setBlock(i,15);
+				grid.setBlock(i,15);
 			
 			if (i > 2 && i <12) {
-				grid.setBlock(i,25);
+				grid.setBlock(i,20);
 			}
 			if( i > 18 && i <50)
-			grid.setBlock(i,25);
+			grid.setBlock(i,20);
 		}
 		
 		
 		
 		//sides
 		for (int i = 0; i < Grid.MHEIGHT ; i++) {
-			if (i > 5 && i <30) {
+			if (i > 5 && i <Grid.MHEIGHT-2) {
 				grid.setBlock(2, i);
 				grid.setBlock(50, i);
 			}

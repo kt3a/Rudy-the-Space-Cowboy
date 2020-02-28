@@ -51,36 +51,36 @@ public class Alien {
 			locx += dx;
 		
 		
-		if (state == JUMP) {
-			// Figure out how far we can move (at our
-			// current speed) without running into
-			// something
-			if (dy > 0) {
-
-				dy = grid.moveDown(collisionBox(), dy);
-
-			} else if (dy < 0) {
-				dy = -grid.moveUp(collisionBox(), -dy);
-			}
-			// Adjust our position
-			if (dy != 0)
-				locy += dy;
-			//
-			// Next we adjust dy to allow for the force
-			// (acceleration) of gravity
-			//
-			dy += GRAVITY;
-			//
-			// Also, check if we're on the ground (or at the
-			// top of the screen)
-			if (grid.onGround(collisionBox())) {
-				dy = 0;
-				state = STAND;
-			} else if (grid.atTop(collisionBox())) {
-				dy = 0;
-			}
-		} else if (!grid.onGround(collisionBox()))
-			state = JUMP;
+//		if (state == JUMP) {
+//			// Figure out how far we can move (at our
+//			// current speed) without running into
+//			// something
+//			if (dy > 0) {
+//
+//				dy = grid.moveDown(collisionBox(), dy);
+//
+//			} else if (dy < 0) {
+//				dy = -grid.moveUp(collisionBox(), -dy);
+//			}
+//			// Adjust our position
+//			if (dy != 0)
+//				locy += dy;
+//			//
+//			// Next we adjust dy to allow for the force
+//			// (acceleration) of gravity
+//			//
+//			dy += GRAVITY;
+//			//
+//			// Also, check if we're on the ground (or at the
+//			// top of the screen)
+//			if (grid.onGround(collisionBox())) {
+//				dy = 0;
+//				state = STAND;
+//			} else if (grid.atTop(collisionBox())) {
+//				dy = 0;
+//			}
+//		} else if (!grid.onGround(collisionBox()))
+//			state = JUMP;
 	}
 
 	public void render(GraphicsContext gc) {

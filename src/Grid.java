@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 public class Grid {
 	
 	public static final int MWIDTH = 80;
-	public static final int MHEIGHT = 32;
+	public static final int MHEIGHT = 28;
 	int map[][] = new int[MWIDTH][MHEIGHT];
 	static final int CELLSIZE = 25; // Number of pixels per map cell, each cell will be 128x128
 	
