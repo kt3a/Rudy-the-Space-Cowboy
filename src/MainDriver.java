@@ -25,7 +25,8 @@ public class MainDriver extends Application{
 	
 	//rudy cowboy things
 	Rudy rudy;
-	Image cowboy;
+	Image cowboy, alienAlive;
+	Alien alien;
 	Sprite sprites[];
 	
 	
@@ -41,7 +42,9 @@ public class MainDriver extends Application{
 		
 		grid = new Grid();
 		cowboy = new Image("rudy80.gif");
-		rudy = new Rudy(grid,100, 200,cowboy);
+		alienAlive = new Image("alien80.gif");
+		rudy = new Rudy(grid,600, 200,cowboy);
+		alien = new Alien(grid,100, 200, alienAlive);
 		shipCreate();
 		
 		
@@ -53,7 +56,7 @@ public class MainDriver extends Application{
         
         rudy.render(gc);
         grid.render(gc);
-      //  ship.render(gc);
+        alien.render(gc);
         
 		
 	}

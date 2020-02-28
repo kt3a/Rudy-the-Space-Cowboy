@@ -26,7 +26,7 @@ public class Rudy {
 	boolean shootkey = false;
 	
 	
-	//idk how tall rudy is so im gonna try this
+	//Rudy is 80px by 80px
 	public int width = 80;
 	public int height = 80;
 	
@@ -115,7 +115,7 @@ public class Rudy {
 			{
 				
 				dy = g.moveDown(collisionBox(), dy);
-				System.out.println("DY IS: "+dy);
+				
 			}
 			else if (dy < 0)
 			{

@@ -104,7 +104,7 @@ public class Grid {
 		for (int col = col1; col <= col2; col++) {
 			
 			if (map[col][row + 1] != 0) {
-				System.out.println("STUCK LINE 104: VALUE IS: " + (edge - rbottom -1));
+			//	System.out.println("STUCK LINE 104: VALUE IS: " + (edge - rbottom -1));
 				return edge - rbottom - 1;
 			}
 		}
