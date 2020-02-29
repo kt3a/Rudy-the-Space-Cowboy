@@ -2,6 +2,9 @@ import javafx.geometry.BoundingBox;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+//Katie Tooher and Amy Herrigan 
+//COSC 3550 
+
 public class Grid {
 
 	public static final int MWIDTH = 80;
@@ -23,13 +26,7 @@ public class Grid {
 	public void render(GraphicsContext gc)
 	{
 		gc.setFill(Color.CADETBLUE);
-		// Just draw visible blocks
-//		int col1 = (MainDriver.vleft)/CELLSIZE;  //0
-//		int col2 = (MainDriver.vleft + MainDriver.VWIDTH)/CELLSIZE;  //20
-//		if (col2 >= MWIDTH)
-//			col2 = MWIDTH-1;
 
-		//map[0][0] = 1;
 
 		for (int row = 0; row < MHEIGHT; row++) {
 			for (int col = 0; col < MWIDTH; col++) {
@@ -45,7 +42,7 @@ public class Grid {
 	public void setBlock(int x, int y)
 	{
 		map[x][y] = 1;
-		System.out.println("SETTING COORDINATE ("+x+","+y+") EQUAL TO 1");
+
 	}
 
 	public int moveRight(BoundingBox r, int d) {

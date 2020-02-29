@@ -1,6 +1,8 @@
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.geometry.BoundingBox;
+//Katie Tooher and Amy Herrigan 
+//COSC 3550 
 
 public class Alien {
 
@@ -28,19 +30,6 @@ public class Alien {
 
 	public void update() {
 
-		// he needs to move on his own
-		// like every frame update he should move around the grid
-		updatePosition();
-	}
-
-	public void updatePosition() {
-
-		// Note: The g in the following code is the
-		// game Grid, not a Graphics context
-		//
-		// first handle sideways movement
-
-		//this needs to be changed to reflect that he keeps moving always, but does not have controls 
 		if (dy > 0) {
 			grid.moveDown(collisionBox(), dy);
 			locy += dy;
@@ -59,37 +48,10 @@ public class Alien {
 			locx += dx;
 		}
 
-//		if (state == JUMP) {
-//			// Figure out how far we can move (at our
-//			// current speed) without running into
-//			// something
-//			if (dy > 0) {
-//
-//				dy = grid.moveDown(collisionBox(), dy);
-//
-//			} else if (dy < 0) {
-//				dy = -grid.moveUp(collisionBox(), -dy);
-//			}
-//			// Adjust our position
-//			if (dy != 0)
-//				locy += dy;
-//			//
-//			// Next we adjust dy to allow for the force
-//			// (acceleration) of gravity
-//			//
-//			dy += GRAVITY;
-//			//
-//			// Also, check if we're on the ground (or at the
-//			// top of the screen)
-//			if (grid.onGround(collisionBox())) {
-//				dy = 0;
-//				state = STAND;
-//			} else if (grid.atTop(collisionBox())) {
-//				dy = 0;
-//			}
-//		} else if (!grid.onGround(collisionBox()))
-//			state = JUMP;
 	}
+
+
+
 
 	public void render(GraphicsContext gc) {
 		gc.drawImage(image, locx, locy);
@@ -99,5 +61,11 @@ public class Alien {
 	{
 		return new BoundingBox(locx, locy, width, height);
 	}
+	
+//	public boolean checkHit(int bullx, int bully) {
+//		//take in the coordinates of the bullet, and compare to this sprites current location
+//		//if the bullet is within bounding box then return true
+//	
+//	}
 
 }

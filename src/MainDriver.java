@@ -12,6 +12,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+
+//Katie Tooher and Amy Herrigan 
+//COSC 3550 
+
 public class MainDriver extends Application{
 
 	//global variables
@@ -27,7 +31,7 @@ public class MainDriver extends Application{
 	Rudy rudy;
 	Image cowboy, alienAlive;
 	Alien alien;
-	Sprite sprites[];
+	Bullet bult; 
 
 
 	public static void main(String[] args) 
@@ -40,10 +44,16 @@ public class MainDriver extends Application{
 		//should just be rudy and the aliens
 
 		grid = new Grid();
+		
+		
+		bult = new Bullet();
+		
+		
+		
 		cowboy = new Image("rudy80.gif");
 		alienAlive = new Image("alien80.gif");
 		rudy = new Rudy(grid,600, 200,cowboy);
-		alien = new Alien(grid,100, 200, alienAlive);
+		alien = new Alien(grid,100, 290, alienAlive);
 		shipCreate();
 
 
@@ -54,6 +64,7 @@ public class MainDriver extends Application{
 		gc.fillRect( 0, 0, WIDTH, HEIGHT);
 
 		rudy.render(gc);
+		bult.render(gc);
 		grid.render(gc);
 		alien.render(gc);
 
@@ -82,24 +93,19 @@ public class MainDriver extends Application{
 				e -> {
 					KeyCode c = e.getCode();
 					switch (c) {
-//						case A: rudy.setLeftKey(true);
-//									break;
-//						case D: rudy.setRightKey(true);
-//									break;
-//						case LEFT: rudy.setLeftKey(true);
-//									break;
-//						case RIGHT: rudy.setRightKey(true);
-//									break;
-//						default:
-//									break;
 
 					case A: rudy.dir = 1;
 						break;
 					case D: rudy.dir = 2;
 						break;
-					// add a Jump key here 
-					case SPACE: rudy.jmp = 1;
+					
+					case W: rudy.jmp = 1;
 						break;
+						
+					case SPACE: 
+						rudy.shoots = 1;
+						bult.wasReleased = true;
+						
 					default:
 						break;
 					}
@@ -108,20 +114,7 @@ public class MainDriver extends Application{
 
 		scene.setOnKeyReleased(
 				e -> {
-					KeyCode c = e.getCode();
-					//						switch (c) {
-					//							case A: rudy.setLeftKey(false);
-					//										break;
-					//							case D: rudy.setRightKey(false);
-					//										break;
-					//							//case ENTER: this should be for the shooting of the gems
-					//							case LEFT: rudy.setLeftKey(false);
-					//										break;
-					//							case RIGHT: rudy.setRightKey(false);
-					//										break;
-					//							default:
-					//										break;
-					//										
+					KeyCode c = e.getCode();									
 					if ((c == KeyCode.A)||(c == KeyCode.D))
 						rudy.dir = 0;
 
@@ -132,7 +125,16 @@ public class MainDriver extends Application{
 	
 	public void update() {
 		//update each sprite and object 1 key frame
+		
+//		if(bult.wasReleased && alien.checkHit(bult.locx,bult.locy)) {
+//			
+//		}
 		rudy.update();
+		bult.locx = rudy.locx +12;
+		bult.locy = rudy.locy + 12;
+		if (bult.wasReleased) {
+			bult.update();
+		}
 		alien.update();
 		checkScrolling();
 	}
