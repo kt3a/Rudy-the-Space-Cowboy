@@ -60,9 +60,21 @@ public class MainDriver extends Application{
 
 	}
 
-	void checkScrolling(){
-		//TODO this will be here to make sure that the screen moves with the main character
-
+	void checkScrolling()
+	{
+		// Test if hero is at edge of view window and scroll appropriately
+		if (rudy.locx < (vleft+SCROLL))
+		{
+			vleft = rudy.locx-SCROLL;
+			if (vleft < 0)
+				vleft = 0;
+		}
+		if ((rudy.locx) > (vleft+VWIDTH-SCROLL))
+		{
+			vleft = rudy.locx-VWIDTH+SCROLL;
+			if (vleft > (grid.width()-VWIDTH))
+				vleft = grid.width()-VWIDTH;
+		}
 	}
 
 	void setHandlers(Scene scene) {
@@ -122,6 +134,7 @@ public class MainDriver extends Application{
 		//update each sprite and object 1 key frame
 		rudy.update();
 		alien.update();
+		checkScrolling();
 	}
 
 	public void shipCreate()
