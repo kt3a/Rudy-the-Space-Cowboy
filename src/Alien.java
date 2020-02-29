@@ -9,13 +9,13 @@ public class Alien {
 	int locx, locy;
 	Grid grid;
 	Image image;
-	
+
 	//alien is 80px by 80px
 	public int width = 80;
 	public int height = 80;
-	
+
 	static final int GRAVITY = 3;
-	public int dx = 2, dy = 2;  //he should start slowly moving
+	public int dx = 4, dy = 0;  //he should start slowly moving
 
 	boolean isDead = false;
 
@@ -39,18 +39,26 @@ public class Alien {
 		// game Grid, not a Graphics context
 		//
 		// first handle sideways movement
-		
-		
+
 		//this needs to be changed to reflect that he keeps moving always, but does not have controls 
-		if (dx > 0) {
-			dx = grid.moveRight(collisionBox(), dx);
-		} else if (dx < 0) {
-			dx = -grid.moveLeft(collisionBox(), -dx);
-		}
-		if (dx != 0)
+		if (dy > 0) {
+			grid.moveDown(collisionBox(), dy);
+			locy += dy;
+		} else {
+			if (dx > 0) {
+				dx = grid.moveRight(collisionBox(), dx);
+				if (locx >= 1160) {
+					dx = -dx;
+				}
+			} else if (dx < 0) {
+				dx = -grid.moveLeft(collisionBox(), -dx);
+				if (locx <= 90) {
+					dx = -dx;
+				}
+			}
 			locx += dx;
-		
-		
+		}
+
 //		if (state == JUMP) {
 //			// Figure out how far we can move (at our
 //			// current speed) without running into
@@ -87,10 +95,9 @@ public class Alien {
 		gc.drawImage(image, locx, locy);
 	}
 
-	
 	public BoundingBox collisionBox()
 	{
 		return new BoundingBox(locx, locy, width, height);
 	}
-	
+
 }

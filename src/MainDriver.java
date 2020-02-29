@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MainDriver extends Application{
-	
+
 	//global variables
 	final static int WIDTH = 2000;
 	final static int HEIGHT = 800;
@@ -22,50 +22,49 @@ public class MainDriver extends Application{
 	public static final int VWIDTH = 1000;
 	public static int vleft = 0;
 	Grid grid;
-	
+
 	//rudy cowboy things
 	Rudy rudy;
 	Image cowboy, alienAlive;
 	Alien alien;
 	Sprite sprites[];
-	
-	
+
+
 	public static void main(String[] args) 
-    {
-        launch(args);
-    }
-	
+	{
+		launch(args);
+	}
 
 	void initialize() {
 		//create the classes for the characters 
 		//should just be rudy and the aliens
-		
+
 		grid = new Grid();
 		cowboy = new Image("rudy80.gif");
 		alienAlive = new Image("alien80.gif");
 		rudy = new Rudy(grid,600, 200,cowboy);
 		alien = new Alien(grid,100, 200, alienAlive);
 		shipCreate();
-		
-		
+
+
 	}
-	
+
 	void render(GraphicsContext gc) {
 		gc.setFill( Color.rgb(143, 140, 137) );
-        gc.fillRect( 0, 0, WIDTH, HEIGHT);
-        
-        rudy.render(gc);
-        grid.render(gc);
-        alien.render(gc);
-        
-		
+		gc.fillRect( 0, 0, WIDTH, HEIGHT);
+
+		rudy.render(gc);
+		grid.render(gc);
+		alien.render(gc);
+
+
 	}
-	
+
 	void checkScrolling(){
-		//this will be here to make sure that the screen moves with the main character
-		
+		//TODO this will be here to make sure that the screen moves with the main character
+
 	}
-	
+
 	void setHandlers(Scene scene) {
 		scene.setOnKeyPressed(
 				e -> {
@@ -79,10 +78,9 @@ public class MainDriver extends Application{
 //									break;
 //						case RIGHT: rudy.setRightKey(true);
 //									break;
-//						
 //						default:
 //									break;
-					
+
 					case A: rudy.dir = 1;
 						break;
 					case D: rudy.dir = 2;
@@ -94,38 +92,38 @@ public class MainDriver extends Application{
 						break;
 					}
 				}
-			);
-			
-			scene.setOnKeyReleased(
-					e -> {
-						KeyCode c = e.getCode();
-//						switch (c) {
-//							case A: rudy.setLeftKey(false);
-//										break;
-//							case D: rudy.setRightKey(false);
-//										break;
-//							//case ENTER: this should be for the shooting of the gems
-//							case LEFT: rudy.setLeftKey(false);
-//										break;
-//							case RIGHT: rudy.setRightKey(false);
-//										break;
-//							default:
-//										break;
-//										
-						if ((c == KeyCode.A)||(c == KeyCode.D))
-							rudy.dir = 0;
-						
-					}
 				);
-		
+
+		scene.setOnKeyReleased(
+				e -> {
+					KeyCode c = e.getCode();
+					//						switch (c) {
+					//							case A: rudy.setLeftKey(false);
+					//										break;
+					//							case D: rudy.setRightKey(false);
+					//										break;
+					//							//case ENTER: this should be for the shooting of the gems
+					//							case LEFT: rudy.setLeftKey(false);
+					//										break;
+					//							case RIGHT: rudy.setRightKey(false);
+					//										break;
+					//							default:
+					//										break;
+					//										
+					if ((c == KeyCode.A)||(c == KeyCode.D))
+						rudy.dir = 0;
+
+				}
+				);
+
 	}
+	
 	public void update() {
 		//update each sprite and object 1 key frame
 		rudy.update();
-		
-		
+		alien.update();
 	}
-	
+
 	public void shipCreate()
 	{
 		//bottom and top of ship
@@ -134,23 +132,21 @@ public class MainDriver extends Application{
 				grid.setBlock(i, Grid.MHEIGHT-3);
 				grid.setBlock(i, 6);
 			}
-			
+
 			//platforms in the ship
 			if (i > 2 && i <12) {
 				grid.setBlock(i,15);
 			}
 			if( i > 18 && i <45)
 				grid.setBlock(i,15);
-			
+
 			if (i > 2 && i <12) {
 				grid.setBlock(i,20);
 			}
 			if( i > 18 && i <50)
-			grid.setBlock(i,20);
+				grid.setBlock(i,20);
 		}
-		
-		
-		
+
 		//sides
 		for (int i = 0; i < Grid.MHEIGHT ; i++) {
 			if (i > 5 && i <Grid.MHEIGHT-2) {
@@ -158,12 +154,9 @@ public class MainDriver extends Application{
 				grid.setBlock(50, i);
 			}
 		}
-		
-		
 
-		
 	}
-	
+
 	@Override
 	public void start(Stage theStage) {
 		theStage.setTitle("Rudy's Mission to the Sun");
@@ -179,7 +172,7 @@ public class MainDriver extends Application{
 		// Initial setup
 		initialize();
 		setHandlers(theScene);
-		
+
 		// Setup and start animation loop (Timeline)
 		KeyFrame kf = new KeyFrame(Duration.millis(1000 / FPS),
 				e -> {
@@ -188,11 +181,12 @@ public class MainDriver extends Application{
 					// draw frame
 					render(gc);
 				}
-			);
+				);
 		Timeline mainLoop = new Timeline(kf);
 		mainLoop.setCycleCount(Animation.INDEFINITE);
 		mainLoop.play();
 
 		theStage.show();
 	}
+	
 }
