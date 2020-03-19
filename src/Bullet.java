@@ -18,6 +18,8 @@ public class Bullet {
 	boolean hitWall = false;
 	boolean active=false, visible=false;
 	
+	//int dir = 1;
+	
 	Grid grid;
 
 	public void render(GraphicsContext gc) {
@@ -32,11 +34,21 @@ public class Bullet {
 		
 	}
 
-	public void update() {
-		locx += dx;
-		System.out.println("bullet location "+locx);
+	public void update(int dir) {
+//		System.out.println("Dir " +dir);
+		if(dir == 1) {  //go right
+			System.out.println("Dir " +dir);
+			locx += dx;
+		}
+		
+		if(dir == 2) {  //go left
+			locx -= dx;
+		}
+		
+		//locx += dx;
 		
 	}
+	
 	
 	public void checkHit() {
 		//if the location of bullet's x direction is < or =  2, OR if > or = 50

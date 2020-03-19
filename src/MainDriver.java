@@ -31,9 +31,13 @@ public class MainDriver extends Application{
 
 	//rudy cowboy things
 	Rudy rudy;
-	Image cowboy, alienAlive;
+	Image cowboys[] = new Image[3];
+	Image timerImages[] = new Image[2];
+	Image cowboyLeft, cowboyRight, cowboyShoot,alienAlive,hat,sun;
 	Alien alien;
 	Bullet bult; 
+	Lives lives;
+	Timer timer;
 
 	MediaPlayer mP;
 
@@ -50,13 +54,27 @@ public class MainDriver extends Application{
 		
 		
 		bult = new Bullet();
+		lives = new Lives();
+		
+		hat = new Image("hat_60x60.png");
+		sun = new Image("sun_60x60.png");
+		timerImages[0] = hat;
+		timerImages[1] = sun;
+		timer = new Timer(timerImages);
 		
 		
+		cowboyRight = new Image("rudy80.gif");
+		cowboyLeft = new Image("leftrudy80.gif");
+		cowboyShoot = new Image("rudy2shoots80.gif");
+	    cowboys[0] = cowboyRight;
+	    cowboys[1] = cowboyLeft;
+	    cowboys[2] = cowboyShoot;
 		
-		cowboy = new Image("rudy80.gif");
+		rudy = new Rudy(grid,600, 200,cowboys);
+		
 		alienAlive = new Image("alien80.gif");
-		rudy = new Rudy(grid,600, 200,cowboy);
 		alien = new Alien(grid,100, 290, alienAlive);
+		
 		shipCreate();
 		
 		Media song = new Media(ClassLoader.getSystemResource("TunnelChase.mp3").toString());
@@ -69,7 +87,9 @@ public class MainDriver extends Application{
 	void render(GraphicsContext gc) {
 		gc.setFill( Color.rgb(143, 140, 137) );
 		gc.fillRect( 0, 0, WIDTH, HEIGHT);
-
+		
+		timer.render(gc);
+		lives.render(gc);
 		rudy.render(gc);
 		bult.render(gc);
 		grid.render(gc);
@@ -114,6 +134,7 @@ public class MainDriver extends Application{
 						bult.wasReleased = true;
 						bult.locx = rudy.locx+20;
 						bult.locy = rudy.locy + 20;
+						//bult.dir = 1;
 						
 					default:
 						break;
@@ -133,16 +154,22 @@ public class MainDriver extends Application{
 	}
 	
 	public void checkAlienHit() {
-		if(bult.wasReleased && bult.locx == alien.locx) {
+
+		if(bult.wasReleased && (bult.collisionBox().intersects(alien.collisionBox()))) {
 			bult.hitAlien = true;
 			alien.wasHit = true;
+			bult.wasReleased = false;
 		}
 	}
 	
 	public void update() {
 		rudy.update();
+		timer.update();	//this updates the hat timer 
 		if (bult.wasReleased) {
-			bult.update();
+			if(rudy.right == true)
+				bult.update(1);
+			if(rudy.left == true)
+				bult.update(2);
 		}
 		
 		checkAlienHit();

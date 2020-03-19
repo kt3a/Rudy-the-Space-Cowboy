@@ -21,8 +21,10 @@ public class Rudy {
 
 	public int state;
 
-	Image cowboy, shootimg;
+	Image cowboyRight, cowboyLeft, cowboyShoots;
 	boolean active = false, visible = true;
+	boolean left = false;
+	boolean right = true;
 
 	// key controls
 	boolean leftKey = false, rightKey = false;
@@ -38,8 +40,10 @@ public class Rudy {
 	
 	//rudy gun control
 	Bullet bult = new Bullet();
+	Image shootimg;
+			//new Image("rudy2shoots.gif");
 
-	public Rudy(Grid grid, int x, int y, Image i) {
+	public Rudy(Grid grid, int x, int y, Image[] images) {
 		// constructor
 		// We use locx, locy is the top-left corner of sprite
 
@@ -47,7 +51,9 @@ public class Rudy {
 		locy = y;
 		g = grid;
 		state = STAND;
-		cowboy = i;
+		cowboyRight = images[0];
+		cowboyLeft = images[1];
+		cowboyShoots = images[2];
 	}
 
 	public BoundingBox collisionBox() {
@@ -55,27 +61,21 @@ public class Rudy {
 	}
 
 	public void render(GraphicsContext gc) {
-		if (visible && shoots != 1) {
-
-			// if active only draw boy
-			gc.drawImage(cowboy, locx, locy);
-			
-			//if shoots true, play shoots image
-
+		if (right && shoots != 1) {
+			gc.drawImage(cowboyRight, locx, locy);
 		}
+		
+		if(left && shoots!= 1) {
+			gc.drawImage(cowboyLeft,locx,locy);
+		}
+		
+//		if(shoots == 1) {
+//			gc.drawImage(cowboyShoots,locx,locy);
+//		}
+		
 
 	}
 	
-	public void shootrender(GraphicsContext gc) {
-		
-		if(shoots == 1)
-			gc.drawImage(shootimg, locx,locy);
-		
-		if(shoots == 0) {
-			render(gc);
-		}
-		
-	}
 
 	public void setVelocity(int x, int y) {
 		dx = x;
@@ -86,23 +86,31 @@ public class Rudy {
 	
 
 	public void update() {
-		if (dir == 1)
+		if (dir == 1) {  //going left
 			dx = -15;
-		else if (dir == 2)
+			right = false;
+			left = true;
+			//bult.dir = 1;
+		}
+		else if (dir == 2) { //going right
 			dx = 15;
+		    right = true;
+		    left = false;
+			//bult.dir = 2;
+		}
+		
 		else
 			dx = 0;
+		
 		if ((state == STAND) && (jmp == 1)) {
 			dy = -28;
 			state = JUMP;
 			jmp = 0;
 		}
-		
+//		
 		if (shoots == 1) {
 			System.out.println("shoots val: " + shoots);
-			//state = SHOOT;
-			
-			
+
 			shoots = 0;
 		}
 		
@@ -110,10 +118,6 @@ public class Rudy {
 			bult.wasReleased = false;
 		}
 		
-		
-		
-		
-
 		updatePosition();
 
 	}
@@ -162,5 +166,7 @@ public class Rudy {
 		} else if (!g.onGround(collisionBox()))
 			state = JUMP;
 	}
+	
+
 
 }
