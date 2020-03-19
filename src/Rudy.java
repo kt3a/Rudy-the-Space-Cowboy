@@ -71,6 +71,10 @@ public class Rudy {
 		if(shoots == 1)
 			gc.drawImage(shootimg, locx,locy);
 		
+		if(shoots == 0) {
+			render(gc);
+		}
+		
 	}
 
 	public void setVelocity(int x, int y) {
@@ -95,9 +99,15 @@ public class Rudy {
 		}
 		
 		if (shoots == 1) {
+			System.out.println("shoots val: " + shoots);
 			//state = SHOOT;
-			shoots = 0;
 			
+			
+			shoots = 0;
+		}
+		
+		if(shoots == 0) {
+			bult.wasReleased = false;
 		}
 		
 		

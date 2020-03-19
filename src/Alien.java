@@ -19,7 +19,7 @@ public class Alien {
 	static final int GRAVITY = 3;
 	public int dx = 4, dy = 0;  //he should start slowly moving
 
-	boolean isDead = false;
+	boolean wasHit = false;
 
 	public Alien(Grid g, int x, int y, Image i) {
 		locx = x;
@@ -54,7 +54,10 @@ public class Alien {
 
 
 	public void render(GraphicsContext gc) {
-		gc.drawImage(image, locx, locy);
+		
+		if(wasHit == false) {
+			gc.drawImage(image, locx, locy);
+		}
 	}
 
 	public BoundingBox collisionBox()

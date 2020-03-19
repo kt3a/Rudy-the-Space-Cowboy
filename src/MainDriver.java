@@ -8,6 +8,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -33,6 +35,7 @@ public class MainDriver extends Application{
 	Alien alien;
 	Bullet bult; 
 
+	MediaPlayer mP;
 
 	public static void main(String[] args) 
 	{
@@ -55,6 +58,10 @@ public class MainDriver extends Application{
 		rudy = new Rudy(grid,600, 200,cowboy);
 		alien = new Alien(grid,100, 290, alienAlive);
 		shipCreate();
+		
+		Media song = new Media(ClassLoader.getSystemResource("TunnelChase.mp3").toString());
+		mP = new MediaPlayer(song);
+		mP.play();
 
 
 	}
@@ -105,6 +112,8 @@ public class MainDriver extends Application{
 					case SPACE: 
 						rudy.shoots = 1;
 						bult.wasReleased = true;
+						bult.locx = rudy.locx+20;
+						bult.locy = rudy.locy + 20;
 						
 					default:
 						break;
@@ -123,18 +132,20 @@ public class MainDriver extends Application{
 
 	}
 	
+	public void checkAlienHit() {
+		if(bult.wasReleased && bult.locx == alien.locx) {
+			bult.hitAlien = true;
+			alien.wasHit = true;
+		}
+	}
+	
 	public void update() {
-		//update each sprite and object 1 key frame
-		
-//		if(bult.wasReleased && alien.checkHit(bult.locx,bult.locy)) {
-//			
-//		}
 		rudy.update();
-		bult.locx = rudy.locx +12;
-		bult.locy = rudy.locy + 12;
 		if (bult.wasReleased) {
 			bult.update();
 		}
+		
+		checkAlienHit();
 		alien.update();
 		checkScrolling();
 	}
