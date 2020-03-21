@@ -25,6 +25,8 @@ public class MainDriver extends Application{
 	final static int HEIGHT = 1500;
 	final int FPS = 30; // frames per second
 	public static final int SCROLL = 100;  // Set edge limit for scrolling
+	public static final int DOWNSCROLL = 250;  // Set edge limit for scrolling
+	
 	public static final int VWIDTH = 1000;
 	final static int VHEIGHT = 600;
 	public static int vleft = 0;
@@ -128,18 +130,21 @@ public class MainDriver extends Application{
 		}
 		
 		//up & down scrolling now
-		if (rudy.locy < (vdown+SCROLL))		//if rudy's x location is less than the left view + scroll constant
+		if (rudy.locy < (vdown+DOWNSCROLL))		
 		{
-			vdown = rudy.locy-SCROLL;		//then set the left view to rudy's x location  - the scroll constant
-			if (vdown < 0)					//if the left view is less than 0 (if he is at the leftmost edge, then reset him to 0 so he is still in view
-				vdown = 0;
+			System.out.println("Rudy's Location "+ rudy.locy + " (vdown+DOWNSCROLL) "+ (vdown+DOWNSCROLL));
+			vdown = rudy.locy-DOWNSCROLL;		
+			if (vdown > grid.height())	//if rudy tries to fall below the grid view, reset to the bottom of the grid				
+				vdown = grid.height();
 		}
-		if ((rudy.locy) > (vdown+VHEIGHT-SCROLL))		//if rudy's x location  is greater than the left view+ the (view width - scroll constant)
+		if ((rudy.locy) > (vdown+VHEIGHT-DOWNSCROLL))		
 		{
+			System.out.println("Rudy's Location "+ rudy.locy + " vdown "+ vdown + " (vdown+VHEIGHT-DOWNSCROLL) " + (vdown+VHEIGHT-DOWNSCROLL));
+			vdown = rudy.locy-VHEIGHT+DOWNSCROLL;			
+			//grid height is 1125
 			
-			vdown = rudy.locy-VHEIGHT+SCROLL;			//left view is set to rudy's location - vwidth+scroll
-			if (vdown > (grid.width()-VHEIGHT))		
-				vdown = grid.width()-VHEIGHT;
+			if (vdown > (grid.height()-VHEIGHT))		
+				vdown = grid.height()-VHEIGHT;
 		}
 		
 		
@@ -238,19 +243,30 @@ public class MainDriver extends Application{
 				grid.setBlock(i, 6);
 			}
 
-			//platforms in the ship
+			//horizontal platforms in the ship
 			if (i > 2 && i <12) {
 				grid.setBlock(i,15);
 			}
+			
+			
 			if( i > 18 && i <45)
 				grid.setBlock(i,15);
-			
-			
-			if (i > 2 && i <12) {
-				grid.setBlock(i,20);
-			}
 			if( i > 18 && i <50)
 				grid.setBlock(i,20);
+			
+			
+			if (i > 2 && i <14) {
+				grid.setBlock(i,20);
+			}
+			
+			if( i > 10 && i <30)
+				grid.setBlock(i,25);
+			
+//			if( i > 10 && i <30)
+//				grid.setBlock(i,30);
+			
+			if( i > 2 && i <30)
+				grid.setBlock(i,30);
 			
 			//stairs
 			if( i > 79 && i <84)

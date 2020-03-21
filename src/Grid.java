@@ -22,6 +22,9 @@ public class Grid {
 	public int width() {
 		return MWIDTH * CELLSIZE;
 	}
+	public int height() {
+		return MHEIGHT * CELLSIZE;
+	}
 
 	public void render(GraphicsContext gc)
 	{
@@ -38,7 +41,7 @@ public class Grid {
 			for (int col = 0; col < MWIDTH; col++) {
 				//System.out.println("MAP COORD: ("+col+","+row+ ") VALUE: "+ map[col][row]);
 				if (map[col][row] == 1)
-					gc.fillRect(col*CELLSIZE - MainDriver.vleft, row*CELLSIZE- MainDriver.vdown, CELLSIZE, CELLSIZE);
+					gc.fillRect(col*CELLSIZE - MainDriver.vleft, row*CELLSIZE - MainDriver.vdown, CELLSIZE, CELLSIZE);
 				
 			}
 		}
