@@ -26,6 +26,7 @@ public class MainDriver extends Application{
 	final int FPS = 30; // frames per second
 	public static final int SCROLL = 100;  // Set edge limit for scrolling
 	public static final int VWIDTH = 1000;
+	final static int VHEIGHT = 800;
 	public static int vleft = 0;
 	
 	int waitPeriod = 4;
@@ -110,17 +111,22 @@ public class MainDriver extends Application{
 
 	void checkScrolling()
 	{
-		// Test if hero is at edge of view window and scroll appropriately
-		if (rudy.locx < (vleft+SCROLL))
+		// Test if hero is at edge of view window and scroll 
+		if (rudy.locx < (vleft+SCROLL))		//if rudy's x location is less than the left view + scroll constant
 		{
-			vleft = rudy.locx-SCROLL;
-			if (vleft < 0)
+			vleft = rudy.locx-SCROLL;		//then set the left view to rudy's x location  - the scroll constant
+			if (vleft < 0)					//if the left view is less than 0 (if he is at the leftmost edge, then reset him to 0 so he is still in view
 				vleft = 0;
 		}
-		if ((rudy.locx) > (vleft+VWIDTH-SCROLL))
+		if ((rudy.locx) > (vleft+VWIDTH-SCROLL))		//if rudy's x location  is greater than the left view+ the (view width - scroll constant)
 		{
-			vleft = rudy.locx-VWIDTH+SCROLL;
-			if (vleft > (grid.width()-VWIDTH))
+			
+			vleft = rudy.locx-VWIDTH+SCROLL;			//left view is set to rudy's location - vwidth+scroll
+			//System.out.println("Rudy's x location " + rudy.locx);
+			//System.out.println("vleft: "+vleft +" vleft+VWIDTH-SCROLL " + (vleft + VWIDTH - SCROLL));
+			//System.out.println("(grid.width()-VWIDTH) "+ (grid.width()-VWIDTH) + " grid width "+ grid.width());
+			if (vleft > (grid.width()-VWIDTH))		
+			//	System.out.println("are u making it in here");
 				vleft = grid.width()-VWIDTH;
 		}
 	}
@@ -244,7 +250,7 @@ public class MainDriver extends Application{
 		Scene theScene = new Scene(root);
 		theStage.setScene(theScene);
 
-		Canvas canvas = new Canvas(WIDTH, HEIGHT);
+		Canvas canvas = new Canvas(VWIDTH, VHEIGHT);
 		root.getChildren().add(canvas);
 
 		GraphicsContext gc = canvas.getGraphicsContext2D();

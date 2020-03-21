@@ -65,15 +65,15 @@ public class Rudy {
 
 	public void render(GraphicsContext gc) {
 		if (right && shoots != 1) {
-			gc.drawImage(cowboyRight, locx, locy);
+			gc.drawImage(cowboyRight, locx-MainDriver.vleft, locy);
 		}
 		
 		if(left && shoots!= 1) {
-			gc.drawImage(cowboyLeft,locx,locy);
+			gc.drawImage(cowboyLeft,locx-MainDriver.vleft,locy);
 		}
 		
 		if(right && shoots == 1) {
-			gc.drawImage(cowboyShootsRight,locx,locy);
+			gc.drawImage(cowboyShootsRight,locx-MainDriver.vleft,locy);
 			flag -= 1; 
 			
 			if(flag == 0) {
@@ -82,7 +82,7 @@ public class Rudy {
 		}
 		
 		if(left && shoots == 1) {
-			gc.drawImage(cowboyShootsLeft,locx,locy);
+			gc.drawImage(cowboyShootsLeft,locx-MainDriver.vleft,locy);
 			flag -= 1; 
 			if(flag == 0) {
 				shoots = 0;

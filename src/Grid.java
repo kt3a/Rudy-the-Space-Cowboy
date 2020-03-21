@@ -27,12 +27,19 @@ public class Grid {
 	{
 		gc.setFill(Color.CADETBLUE);
 
+		//scrolling test
+		int col1 = (MainDriver.vleft) / CELLSIZE; // 0
+		int col2 = (MainDriver.vleft + MainDriver.VWIDTH) / CELLSIZE; // 20
+		if (col2 >= MWIDTH)
+			col2 = MWIDTH - 1;
+		
 
 		for (int row = 0; row < MHEIGHT; row++) {
 			for (int col = 0; col < MWIDTH; col++) {
 				//System.out.println("MAP COORD: ("+col+","+row+ ") VALUE: "+ map[col][row]);
 				if (map[col][row] == 1)
-					gc.fillRect(col*CELLSIZE, row*CELLSIZE, CELLSIZE, CELLSIZE);
+					gc.fillRect(col*CELLSIZE - MainDriver.vleft, row*CELLSIZE, CELLSIZE, CELLSIZE);
+				
 			}
 		}
 

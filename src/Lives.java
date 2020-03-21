@@ -41,12 +41,12 @@ public class Lives {
 	}
 	
 	public void checkLives() {
-		System.out.println("left value" + left);
+		//System.out.println("left value" + left);
 		if(remove && left > 0) {
 			if(waitPeriod == 60) {
 				left -=1;
 				heartss[left] = false;
-				System.out.println("HERE");
+				//System.out.println("HERE");
 			}
 			remove = false;
 		}
