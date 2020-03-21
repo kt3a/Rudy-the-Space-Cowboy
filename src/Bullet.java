@@ -36,13 +36,26 @@ public class Bullet {
 
 	public void update(int dir) {
 //		System.out.println("Dir " +dir);
+		
 		if(dir == 1) {  //go right
-			System.out.println("Dir " +dir);
-			locx += dx;
+			if (locx >= 1160) {
+				hitWall = true;
+				wasReleased = false;
+				//delete
+			}
+			
+			else
+				locx += dx;
 		}
 		
 		if(dir == 2) {  //go left
-			locx -= dx;
+			if (locx <= 90) {
+				hitWall = true;
+				wasReleased = false;
+			}
+			
+			else
+				locx -= dx;
 		}
 		
 		//locx += dx;
@@ -50,19 +63,17 @@ public class Bullet {
 	}
 	
 	
-	public void checkHit() {
-		//if the location of bullet's x direction is < or =  2, OR if > or = 50
-		//then hitWall = true
-		if(locx <= 2 || locx >=50) {
-			hitWall = true;
-		}
-		
-	}
+	
 	
 	//bounding box for the bullet why not
 	public BoundingBox collisionBox()
 	{
 		return new BoundingBox(locx, locy, w/3, h/3);
 	}
+	
+	public void resume()
+	  {
+	    active = true; visible = true;
+	  }
 
 }

@@ -27,16 +27,18 @@ public class MainDriver extends Application{
 	public static final int SCROLL = 100;  // Set edge limit for scrolling
 	public static final int VWIDTH = 1000;
 	public static int vleft = 0;
+	
+	int waitPeriod = 4;
+	boolean wait = false;
+	
 	Grid grid;
-
-	//rudy cowboy things
 	Rudy rudy;
-	Image cowboys[] = new Image[3];
+	Image cowboys[] = new Image[4];
 	Image timerImages[] = new Image[2];
-	Image cowboyLeft, cowboyRight, cowboyShoot,alienAlive,hat,sun;
+	Image cowboyLeft, cowboyRight, cowboyShootRight, cowboyShootLeft,alienAlive,hat,sun;
 	Alien alien;
 	Bullet bult; 
-	Lives lives;
+	Lives lives;               
 	Timer timer;
 
 	MediaPlayer mP;
@@ -65,10 +67,12 @@ public class MainDriver extends Application{
 		
 		cowboyRight = new Image("rudy80.gif");
 		cowboyLeft = new Image("leftrudy80.gif");
-		cowboyShoot = new Image("rudy2shoots80.gif");
+		cowboyShootRight = new Image("rudy2shoots80.gif");
+		cowboyShootLeft = new Image("rudy2shootsLeft.gif");
 	    cowboys[0] = cowboyRight;
 	    cowboys[1] = cowboyLeft;
-	    cowboys[2] = cowboyShoot;
+	    cowboys[2] = cowboyShootRight;
+	    cowboys[3] = cowboyShootLeft;
 		
 		rudy = new Rudy(grid,600, 200,cowboys);
 		
@@ -132,8 +136,8 @@ public class MainDriver extends Application{
 					case SPACE: 
 						rudy.shoots = 1;
 						bult.wasReleased = true;
-						bult.locx = rudy.locx+20;
-						bult.locy = rudy.locy + 20;
+						bult.locx = rudy.locx+35;
+						bult.locy = rudy.locy + 35;
 						//bult.dir = 1;
 						
 					default:
@@ -162,6 +166,13 @@ public class MainDriver extends Application{
 		}
 	}
 	
+	public void checkRudyHit() {
+		if(alien.collisionBox().intersects(rudy.collisionBox())) {
+			rudy.wasHit = true;
+			lives.left -= 1;
+		}
+	}
+	
 	public void update() {
 		rudy.update();
 		timer.update();	//this updates the hat timer 
@@ -173,6 +184,7 @@ public class MainDriver extends Application{
 		}
 		
 		checkAlienHit();
+		checkRudyHit();
 		alien.update();
 		checkScrolling();
 	}

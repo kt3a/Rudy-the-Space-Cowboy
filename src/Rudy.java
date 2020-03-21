@@ -20,8 +20,9 @@ public class Rudy {
 	public int shoots = 0;
 
 	public int state;
+	public int flag = 2;
 
-	Image cowboyRight, cowboyLeft, cowboyShoots;
+	Image cowboyRight, cowboyLeft, cowboyShootsRight, cowboyShootsLeft;
 	boolean active = false, visible = true;
 	boolean left = false;
 	boolean right = true;
@@ -41,8 +42,9 @@ public class Rudy {
 	//rudy gun control
 	Bullet bult = new Bullet();
 	Image shootimg;
-			//new Image("rudy2shoots.gif");
+	boolean wasHit = false;
 
+	
 	public Rudy(Grid grid, int x, int y, Image[] images) {
 		// constructor
 		// We use locx, locy is the top-left corner of sprite
@@ -53,7 +55,8 @@ public class Rudy {
 		state = STAND;
 		cowboyRight = images[0];
 		cowboyLeft = images[1];
-		cowboyShoots = images[2];
+		cowboyShootsRight = images[2];
+		cowboyShootsLeft = images[3];
 	}
 
 	public BoundingBox collisionBox() {
@@ -69,10 +72,16 @@ public class Rudy {
 			gc.drawImage(cowboyLeft,locx,locy);
 		}
 		
-//		if(shoots == 1) {
-//			gc.drawImage(cowboyShoots,locx,locy);
-//		}
+		if(right && shoots == 1) {
+			gc.drawImage(cowboyShootsRight,locx,locy);
+			flag -= 1; 
+		}
 		
+//		if(left && shoots == 1) {
+//			gc.drawImage(cowboyShootsLeft,locx,locy);
+//			flag -= 1; 
+//		}
+//		
 
 	}
 	
@@ -109,9 +118,11 @@ public class Rudy {
 		}
 //		
 		if (shoots == 1) {
-			System.out.println("shoots val: " + shoots);
-
-			shoots = 0;
+			//System.out.println("shoots val: " + shoots);
+			bult.wasReleased = true;
+			if (flag == 0) {
+				shoots = 0;
+			}
 		}
 		
 		if(shoots == 0) {

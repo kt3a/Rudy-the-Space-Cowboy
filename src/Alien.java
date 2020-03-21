@@ -65,10 +65,5 @@ public class Alien {
 		return new BoundingBox(locx, locy, width, height);
 	}
 	
-//	public boolean checkHit(int bullx, int bully) {
-//		//take in the coordinates of the bullet, and compare to this sprites current location
-//		//if the bullet is within bounding box then return true
-//	
-//	}
 
 }
