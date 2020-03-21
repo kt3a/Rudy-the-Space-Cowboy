@@ -25,7 +25,7 @@ public class MainDriver extends Application{
 	final static int HEIGHT = 1500;
 	final int FPS = 30; // frames per second
 	public static final int SCROLL = 100;  // Set edge limit for scrolling
-	public static final int DOWNSCROLL = 250;  // Set edge limit for scrolling
+	public static final int DOWNSCROLL = 100;  // Set edge limit for scrolling
 	
 	public static final int VWIDTH = 1000;
 	final static int VHEIGHT = 600;
@@ -130,22 +130,26 @@ public class MainDriver extends Application{
 		}
 		
 		//up & down scrolling now
-		if (rudy.locy < (vdown+DOWNSCROLL))		
-		{
-			System.out.println("Rudy's Location "+ rudy.locy + " (vdown+DOWNSCROLL) "+ (vdown+DOWNSCROLL));
-			vdown = rudy.locy-DOWNSCROLL;		
-			if (vdown > grid.height())	//if rudy tries to fall below the grid view, reset to the bottom of the grid				
-				vdown = grid.height();
-		}
-		if ((rudy.locy) > (vdown+VHEIGHT-DOWNSCROLL))		
-		{
-			System.out.println("Rudy's Location "+ rudy.locy + " vdown "+ vdown + " (vdown+VHEIGHT-DOWNSCROLL) " + (vdown+VHEIGHT-DOWNSCROLL));
-			vdown = rudy.locy-VHEIGHT+DOWNSCROLL;			
-			//grid height is 1125
-			
-			if (vdown > (grid.height()-VHEIGHT))		
-				vdown = grid.height()-VHEIGHT;
-		}
+//		if (rudy.locy < (vdown+DOWNSCROLL))		
+//		{
+//			System.out.println("Rudy's Location "+ rudy.locy + " (vdown+DOWNSCROLL) "+ (vdown+DOWNSCROLL));
+//			vdown = rudy.locy + DOWNSCROLL;		//the view y location should increase	
+//			
+//			if (vdown > grid.height())	//if rudy tries to fall below the grid view, reset to the bottom of the grid				
+//				vdown = grid.height();
+//		}
+		
+		
+//		if ((rudy.locy) > (vdown+VHEIGHT-DOWNSCROLL))		
+//		{
+//			System.out.println("Rudy's Location "+ rudy.locy + " vdown "+ vdown + " (vdown+VHEIGHT-DOWNSCROLL) " + (vdown+VHEIGHT-DOWNSCROLL));
+//			vdown = rudy.locy + VHEIGHT-DOWNSCROLL;			//vdown = rudy.locy + VHEIGHT-DOWNSCROLL;		
+//			//grid height is 1125
+//			
+//			System.out.println("(grid.height()-VHEIGHT+downscroll) " +(grid.height()-VHEIGHT+DOWNSCROLL));
+//			if (vdown > (grid.height()-VHEIGHT))		
+//				vdown = grid.height()-VHEIGHT+DOWNSCROLL;
+//		}
 		
 		
 		
@@ -237,8 +241,9 @@ public class MainDriver extends Application{
 			
 			//bottom and top of ship
 			if (i > 2 && i < 1000) {
-				//bottom
-				grid.setBlock(i, Grid.MHEIGHT-3);
+				
+				//bottom -- change this when we get down scrolling working
+				grid.setBlock(i, Grid.MHEIGHT-20);
 				//top
 				grid.setBlock(i, 6);
 			}

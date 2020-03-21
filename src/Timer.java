@@ -25,6 +25,11 @@ public class Timer {
 		gc.fillText("START", 30, 74);
 		
 		gc.setFill(Color.BLUE);
+		
+//		for(int i = 0; i < 30; i++) {
+//			if(i > 3 && i < 1000);
+//			grid.setBlock(i,3);
+//		}
 		gc.fillRect(30,75,1300,20);
 		
 		gc.drawImage(hat,x ,60);

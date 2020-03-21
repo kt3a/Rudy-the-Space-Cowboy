@@ -41,7 +41,10 @@ public class Grid {
 			for (int col = 0; col < MWIDTH; col++) {
 				//System.out.println("MAP COORD: ("+col+","+row+ ") VALUE: "+ map[col][row]);
 				if (map[col][row] == 1)
-					gc.fillRect(col*CELLSIZE - MainDriver.vleft, row*CELLSIZE - MainDriver.vdown, CELLSIZE, CELLSIZE);
+					gc.fillRect(col*CELLSIZE - MainDriver.vleft, row*CELLSIZE, CELLSIZE, CELLSIZE);
+					
+					//THIS is the statement I was trying to use for the down scrolling
+					//gc.fillRect(col*CELLSIZE - MainDriver.vleft, row*CELLSIZE - MainDriver.vdown, CELLSIZE, CELLSIZE);
 				
 			}
 		}
