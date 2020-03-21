@@ -12,6 +12,8 @@ public class Timer {
 	
 	int x = 10;
 	
+	Grid grid;
+	
 	public Timer(Image[] images) {
 		font = Font.font("Impact", FontWeight.BOLD, 20);
 		hat = images[0];

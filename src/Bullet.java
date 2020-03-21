@@ -41,12 +41,10 @@ public class Bullet {
 //		System.out.println("Dir " +dir);
 		
 		if(dir == 1) { //&& goingRight && goingLeft == false) {  //go right
-			if (locx >= 1160) {
+			if (locx >= 900) {
 				hitWall = true;
 				wasReleased = false;
-				//goingRight = false;
 				
-				//delete
 			}
 			
 			else
@@ -57,7 +55,7 @@ public class Bullet {
 			if (locx <= 90) {
 				hitWall = true;
 				wasReleased = false;
-				//goingLeft = false;
+				
 				
 			}
 			

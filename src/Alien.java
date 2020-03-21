@@ -40,7 +40,7 @@ public class Alien {
 		} else {
 			if (dx > 0 && wasHit != true) {
 				dx = grid.moveRight(collisionBox(), dx);
-				if (locx >= 1160) {
+				if (locx >= 1900) {
 					dx = -dx;
 				}
 			} else if (dx < 0 && wasHit != true) {

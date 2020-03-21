@@ -7,8 +7,8 @@ import javafx.scene.paint.Color;
 
 public class Grid {
 
-	public static final int MWIDTH = 80;
-	public static final int MHEIGHT = 28;
+	public static final int MWIDTH = 100;
+	public static final int MHEIGHT = 45;
 	int map[][] = new int[MWIDTH][MHEIGHT];
 	static final int CELLSIZE = 25; // Number of pixels per map cell, each cell will be 128x128
 
@@ -38,7 +38,7 @@ public class Grid {
 			for (int col = 0; col < MWIDTH; col++) {
 				//System.out.println("MAP COORD: ("+col+","+row+ ") VALUE: "+ map[col][row]);
 				if (map[col][row] == 1)
-					gc.fillRect(col*CELLSIZE - MainDriver.vleft, row*CELLSIZE, CELLSIZE, CELLSIZE);
+					gc.fillRect(col*CELLSIZE - MainDriver.vleft, row*CELLSIZE- MainDriver.vdown, CELLSIZE, CELLSIZE);
 				
 			}
 		}

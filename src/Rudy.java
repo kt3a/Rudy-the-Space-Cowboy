@@ -20,7 +20,7 @@ public class Rudy {
 	public int shoots = 0;
 
 	public int state;
-	public int flag = 20;
+	public int flag = 10;
 
 	Image cowboyRight, cowboyLeft, cowboyShootsRight, cowboyShootsLeft;
 	boolean active = false, visible = true;

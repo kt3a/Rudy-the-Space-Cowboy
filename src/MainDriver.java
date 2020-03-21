@@ -22,12 +22,13 @@ public class MainDriver extends Application{
 
 	//global variables
 	final static int WIDTH = 2000;
-	final static int HEIGHT = 800;
+	final static int HEIGHT = 1500;
 	final int FPS = 30; // frames per second
 	public static final int SCROLL = 100;  // Set edge limit for scrolling
 	public static final int VWIDTH = 1000;
-	final static int VHEIGHT = 800;
+	final static int VHEIGHT = 600;
 	public static int vleft = 0;
+	public static int vdown = 0;
 	
 	int waitPeriod = 4;
 	boolean wait = false;
@@ -122,13 +123,27 @@ public class MainDriver extends Application{
 		{
 			
 			vleft = rudy.locx-VWIDTH+SCROLL;			//left view is set to rudy's location - vwidth+scroll
-			//System.out.println("Rudy's x location " + rudy.locx);
-			//System.out.println("vleft: "+vleft +" vleft+VWIDTH-SCROLL " + (vleft + VWIDTH - SCROLL));
-			//System.out.println("(grid.width()-VWIDTH) "+ (grid.width()-VWIDTH) + " grid width "+ grid.width());
 			if (vleft > (grid.width()-VWIDTH))		
-			//	System.out.println("are u making it in here");
 				vleft = grid.width()-VWIDTH;
 		}
+		
+		//up & down scrolling now
+		if (rudy.locy < (vdown+SCROLL))		//if rudy's x location is less than the left view + scroll constant
+		{
+			vdown = rudy.locy-SCROLL;		//then set the left view to rudy's x location  - the scroll constant
+			if (vdown < 0)					//if the left view is less than 0 (if he is at the leftmost edge, then reset him to 0 so he is still in view
+				vdown = 0;
+		}
+		if ((rudy.locy) > (vdown+VHEIGHT-SCROLL))		//if rudy's x location  is greater than the left view+ the (view width - scroll constant)
+		{
+			
+			vdown = rudy.locy-VHEIGHT+SCROLL;			//left view is set to rudy's location - vwidth+scroll
+			if (vdown > (grid.width()-VHEIGHT))		
+				vdown = grid.width()-VHEIGHT;
+		}
+		
+		
+		
 	}
 
 	void setHandlers(Scene scene) {
@@ -212,10 +227,14 @@ public class MainDriver extends Application{
 
 	public void shipCreate()
 	{
-		//bottom and top of ship
+		//horizontal platforms
 		for (int i = 0; i < Grid.MWIDTH ; i++) {
-			if (i > 2 && i < 50) {
+			
+			//bottom and top of ship
+			if (i > 2 && i < 1000) {
+				//bottom
 				grid.setBlock(i, Grid.MHEIGHT-3);
+				//top
 				grid.setBlock(i, 6);
 			}
 
@@ -225,19 +244,52 @@ public class MainDriver extends Application{
 			}
 			if( i > 18 && i <45)
 				grid.setBlock(i,15);
-
+			
+			
 			if (i > 2 && i <12) {
 				grid.setBlock(i,20);
 			}
 			if( i > 18 && i <50)
 				grid.setBlock(i,20);
+			
+			//stairs
+			if( i > 79 && i <84)
+				grid.setBlock(i,20);
+			if( i > 82 && i <87)
+				grid.setBlock(i,17);
+			if( i > 85 && i <90)
+				grid.setBlock(i,13);
+			
 		}
 
-		//sides
+		//sides of ship
 		for (int i = 0; i < Grid.MHEIGHT ; i++) {
 			if (i > 5 && i <Grid.MHEIGHT-2) {
 				grid.setBlock(2, i);
-				grid.setBlock(50, i);
+				grid.setBlock(90, i);
+			}
+			
+		}
+		
+		//vertical platforms 
+		for (int i = 0; i < Grid.MHEIGHT; i ++) {
+			if (i > 20 && i < Grid.MHEIGHT - 2) {
+				grid.setBlock(80,i);
+				
+				
+			}
+		}
+		
+		//stairs
+		for (int i = 0; i < Grid.MHEIGHT; i ++) {
+			if (i > 17 && i < Grid.MHEIGHT - 2) {
+				grid.setBlock(83,i);
+			}
+		}
+		
+		for (int i = 0; i < Grid.MHEIGHT; i ++) {
+			if (i > 13 && i < Grid.MHEIGHT - 2) {
+				grid.setBlock(86,i);
 			}
 		}
 
