@@ -10,7 +10,7 @@ public class Alien {
 	public int health = 2; // it will take two hits before the alien dies
 	int locx, locy;
 	Grid grid;
-	Image image;
+	Image alienAlive, alienDead;
 
 	//alien is 80px by 80px
 	public int width = 80;
@@ -20,12 +20,16 @@ public class Alien {
 	public int dx = 4, dy = 0;  //he should start slowly moving
 
 	boolean wasHit = false;
+	boolean active = true, visible = false;
+	
+	int waitPeriod = 32; 	//wait for 2 frames to see the death animation
 
-	public Alien(Grid g, int x, int y, Image i) {
+	public Alien(Grid g, int x, int y, Image[] images) {
 		locx = x;
 		locy = y;
 		grid = g;
-		image = i;
+		alienAlive = images[0];
+		alienDead = images[1];
 	}
 
 	public void update() {
@@ -34,17 +38,18 @@ public class Alien {
 			grid.moveDown(collisionBox(), dy);
 			locy += dy;
 		} else {
-			if (dx > 0) {
+			if (dx > 0 && wasHit != true) {
 				dx = grid.moveRight(collisionBox(), dx);
 				if (locx >= 1160) {
 					dx = -dx;
 				}
-			} else if (dx < 0) {
+			} else if (dx < 0 && wasHit != true) {
 				dx = -grid.moveLeft(collisionBox(), -dx);
 				if (locx <= 90) {
 					dx = -dx;
 				}
 			}
+			
 			locx += dx;
 		}
 
@@ -55,8 +60,18 @@ public class Alien {
 
 	public void render(GraphicsContext gc) {
 		
-		if(wasHit == false) {
-			gc.drawImage(image, locx, locy);
+		if(active) {
+			gc.drawImage(alienAlive, locx, locy);
+		}
+		
+		if(wasHit) {
+			gc.drawImage(alienDead, locx, locy);
+			waitPeriod -= 1;
+			
+			if(waitPeriod ==0) {
+				wasHit = false;
+				active = false;
+			}
 		}
 	}
 

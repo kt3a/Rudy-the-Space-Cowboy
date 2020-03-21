@@ -35,7 +35,8 @@ public class MainDriver extends Application{
 	Rudy rudy;
 	Image cowboys[] = new Image[4];
 	Image timerImages[] = new Image[2];
-	Image cowboyLeft, cowboyRight, cowboyShootRight, cowboyShootLeft,alienAlive,hat,sun;
+	Image aliens[] = new Image[2];
+	Image cowboyLeft, cowboyRight, cowboyShootRight, cowboyShootLeft,alienAlive,alienDead,hat,sun,heart;
 	Alien alien;
 	Bullet bult; 
 	Lives lives;               
@@ -56,7 +57,9 @@ public class MainDriver extends Application{
 		
 		
 		bult = new Bullet();
-		lives = new Lives();
+		
+		heart = new Image("life.gif");
+		lives = new Lives(heart);
 		
 		hat = new Image("hat_60x60.png");
 		sun = new Image("sun_60x60.png");
@@ -77,9 +80,12 @@ public class MainDriver extends Application{
 		rudy = new Rudy(grid,600, 200,cowboys);
 		
 		alienAlive = new Image("alien80.gif");
-		alien = new Alien(grid,100, 290, alienAlive);
+		alienDead = new Image("aliendeath80.gif");
+		aliens[0] = alienAlive;
+		aliens[1] = alienDead;
+		alien = new Alien(grid,100, 290, aliens);
 		
-		shipCreate();
+		shipCreate();		//this method creates the ship platform grid to run around on.
 		
 		Media song = new Media(ClassLoader.getSystemResource("TunnelChase.mp3").toString());
 		mP = new MediaPlayer(song);
@@ -138,6 +144,7 @@ public class MainDriver extends Application{
 						bult.wasReleased = true;
 						bult.locx = rudy.locx+35;
 						bult.locy = rudy.locy + 35;
+						
 						//bult.dir = 1;
 						
 					default:
@@ -169,22 +176,30 @@ public class MainDriver extends Application{
 	public void checkRudyHit() {
 		if(alien.collisionBox().intersects(rudy.collisionBox())) {
 			rudy.wasHit = true;
-			lives.left -= 1;
+			lives.remove = true;
+			lives.checkLives();
+						
 		}
 	}
 	
 	public void update() {
 		rudy.update();
 		timer.update();	//this updates the hat timer 
-		if (bult.wasReleased) {
-			if(rudy.right == true)
-				bult.update(1);
-			if(rudy.left == true)
-				bult.update(2);
-		}
-		
 		checkAlienHit();
 		checkRudyHit();
+		
+		if (bult.wasReleased) {
+			if(rudy.right == true) {
+				bult.update(1);
+				//bult.goingRight = true;
+			}
+			if(rudy.left == true) {
+				bult.update(2);
+				//bult.goingLeft = true;
+			}
+		}
+		
+		
 		alien.update();
 		checkScrolling();
 	}

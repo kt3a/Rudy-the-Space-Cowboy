@@ -17,6 +17,8 @@ public class Bullet {
 	boolean hitAlien = false;
 	boolean hitWall = false;
 	boolean active=false, visible=false;
+	boolean goingLeft = false, goingRight = false;
+	
 	
 	//int dir = 1;
 	
@@ -30,6 +32,7 @@ public class Bullet {
 		
 		if(hitWall) {		//if it hit the wall
 			wasReleased = false;		//turn it off
+			hitWall = false;			//turn off the Wall check
 		}
 		
 	}
@@ -37,10 +40,12 @@ public class Bullet {
 	public void update(int dir) {
 //		System.out.println("Dir " +dir);
 		
-		if(dir == 1) {  //go right
+		if(dir == 1) { //&& goingRight && goingLeft == false) {  //go right
 			if (locx >= 1160) {
 				hitWall = true;
 				wasReleased = false;
+				//goingRight = false;
+				
 				//delete
 			}
 			
@@ -48,10 +53,12 @@ public class Bullet {
 				locx += dx;
 		}
 		
-		if(dir == 2) {  //go left
+		if(dir == 2) { //&& goingLeft && goingRight == false) {  //go left
 			if (locx <= 90) {
 				hitWall = true;
 				wasReleased = false;
+				//goingLeft = false;
+				
 			}
 			
 			else
@@ -65,7 +72,7 @@ public class Bullet {
 	
 	
 	
-	//bounding box for the bullet why not
+	//bounding box for the bullet 
 	public BoundingBox collisionBox()
 	{
 		return new BoundingBox(locx, locy, w/3, h/3);

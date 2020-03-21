@@ -20,7 +20,7 @@ public class Rudy {
 	public int shoots = 0;
 
 	public int state;
-	public int flag = 2;
+	public int flag = 20;
 
 	Image cowboyRight, cowboyLeft, cowboyShootsRight, cowboyShootsLeft;
 	boolean active = false, visible = true;
@@ -75,13 +75,20 @@ public class Rudy {
 		if(right && shoots == 1) {
 			gc.drawImage(cowboyShootsRight,locx,locy);
 			flag -= 1; 
+			
+			if(flag == 0) {
+				shoots = 0;
+			}
 		}
 		
-//		if(left && shoots == 1) {
-//			gc.drawImage(cowboyShootsLeft,locx,locy);
-//			flag -= 1; 
-//		}
-//		
+		if(left && shoots == 1) {
+			gc.drawImage(cowboyShootsLeft,locx,locy);
+			flag -= 1; 
+			if(flag == 0) {
+				shoots = 0;
+			}
+		}
+	
 
 	}
 	
@@ -120,9 +127,10 @@ public class Rudy {
 		if (shoots == 1) {
 			//System.out.println("shoots val: " + shoots);
 			bult.wasReleased = true;
-			if (flag == 0) {
-				shoots = 0;
-			}
+//			if (flag == 0) {
+//				shoots = 0;
+//			}
+			//shoots = 0;
 		}
 		
 		if(shoots == 0) {
