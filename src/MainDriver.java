@@ -30,7 +30,7 @@ public class MainDriver extends Application{
 	public static final int VWIDTH = 1000;
 	final static int VHEIGHT = 600;
 	public static int vleft = 0;
-	public static int vdown = 0;
+	public static int vtop = 0;
 	
 	int waitPeriod = 4;
 	boolean wait = false;
@@ -129,27 +129,16 @@ public class MainDriver extends Application{
 				vleft = grid.width()-VWIDTH;
 		}
 		
-		//up & down scrolling now
-//		if (rudy.locy < (vdown+DOWNSCROLL))		
-//		{
-//			System.out.println("Rudy's Location "+ rudy.locy + " (vdown+DOWNSCROLL) "+ (vdown+DOWNSCROLL));
-//			vdown = rudy.locy + DOWNSCROLL;		//the view y location should increase	
-//			
-//			if (vdown > grid.height())	//if rudy tries to fall below the grid view, reset to the bottom of the grid				
-//				vdown = grid.height();
-//		}
 		
-		
-//		if ((rudy.locy) > (vdown+VHEIGHT-DOWNSCROLL))		
-//		{
-//			System.out.println("Rudy's Location "+ rudy.locy + " vdown "+ vdown + " (vdown+VHEIGHT-DOWNSCROLL) " + (vdown+VHEIGHT-DOWNSCROLL));
-//			vdown = rudy.locy + VHEIGHT-DOWNSCROLL;			//vdown = rudy.locy + VHEIGHT-DOWNSCROLL;		
-//			//grid height is 1125
-//			
-//			System.out.println("(grid.height()-VHEIGHT+downscroll) " +(grid.height()-VHEIGHT+DOWNSCROLL));
-//			if (vdown > (grid.height()-VHEIGHT))		
-//				vdown = grid.height()-VHEIGHT+DOWNSCROLL;
-//		}
+		//up and down scrolling
+		if ((rudy.locy) > (vtop+VHEIGHT-DOWNSCROLL))		
+		{
+			vtop = rudy.locy - (VHEIGHT-DOWNSCROLL);					
+			//grid height is 1125
+			
+			if (vtop > (grid.height()-VHEIGHT))		
+				vtop = grid.height()-VHEIGHT+DOWNSCROLL;
+		}
 		
 		
 		
@@ -161,9 +150,11 @@ public class MainDriver extends Application{
 					KeyCode c = e.getCode();
 					switch (c) {
 
-					case A: rudy.dir = 1;
+					case A: 
+						rudy.dir = 1;	//left
 						break;
-					case D: rudy.dir = 2;
+					case D: 
+						rudy.dir = 2;	//right
 						break;
 					
 					case W: rudy.jmp = 1;
@@ -172,8 +163,12 @@ public class MainDriver extends Application{
 					case SPACE: 
 						rudy.shoots = 1;
 						bult.wasReleased = true;
-						bult.locx = rudy.locx+35;
+						bult.locx = rudy.locx + 35;
 						bult.locy = rudy.locy + 35;
+						if(rudy.left) 
+							bult.dir = 1;
+						if(rudy.right)
+							bult.dir = 2;
 						
 						//bult.dir = 1;
 						
@@ -219,14 +214,8 @@ public class MainDriver extends Application{
 		checkRudyHit();
 		
 		if (bult.wasReleased) {
-			if(rudy.right == true) {
-				bult.update(1);
-				//bult.goingRight = true;
-			}
-			if(rudy.left == true) {
-				bult.update(2);
-				//bult.goingLeft = true;
-			}
+				bult.update();	
+			
 		}
 		
 		
@@ -243,7 +232,8 @@ public class MainDriver extends Application{
 			if (i > 2 && i < 1000) {
 				
 				//bottom -- change this when we get down scrolling working
-				grid.setBlock(i, Grid.MHEIGHT-20);
+				//grid.setBlock(i, Grid.MHEIGHT-20);
+				grid.setBlock(i,Grid.MHEIGHT-2);
 				//top
 				grid.setBlock(i, 6);
 			}

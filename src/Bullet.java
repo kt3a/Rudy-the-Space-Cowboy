@@ -20,7 +20,7 @@ public class Bullet {
 	boolean goingLeft = false, goingRight = false;
 	
 	
-	//int dir = 1;
+	int dir;		//this marks the left/right direction --> made into an instance variable so that bullet does not change directions
 	
 	Grid grid;
 
@@ -37,10 +37,12 @@ public class Bullet {
 		
 	}
 
-	public void update(int dir) {
+	public void update() {
 //		System.out.println("Dir " +dir);
 		
-		if(dir == 1) { //&& goingRight && goingLeft == false) {  //go right
+		//make dir an instance variable instead of parameter
+		
+		if(dir == 2) { 			//go right
 			if (locx >= 900) {
 				hitWall = true;
 				wasReleased = false;
@@ -51,7 +53,7 @@ public class Bullet {
 				locx += dx;
 		}
 		
-		if(dir == 2) { //&& goingLeft && goingRight == false) {  //go left
+		if(dir == 1) { //&& goingLeft && goingRight == false) {  //go left
 			if (locx <= 90) {
 				hitWall = true;
 				wasReleased = false;
