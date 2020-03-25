@@ -78,6 +78,7 @@ public class Rudy {
 			
 			if(flag == 0) {
 				shoots = 0;
+				flag = 10;
 			}
 		}
 		
@@ -86,6 +87,7 @@ public class Rudy {
 			flag -= 1; 
 			if(flag == 0) {
 				shoots = 0;
+				flag = 10;
 			}
 		}
 	
@@ -119,18 +121,13 @@ public class Rudy {
 			dx = 0;
 		
 		if ((state == STAND) && (jmp == 1)) {
-			dy = -28;
+			dy = -27;
 			state = JUMP;
 			jmp = 0;
 		}
-//		
 		if (shoots == 1) {
-			//System.out.println("shoots val: " + shoots);
 			bult.wasReleased = true;
-//			if (flag == 0) {
-//				shoots = 0;
-//			}
-			//shoots = 0;
+
 		}
 		
 		if(shoots == 0) {
@@ -167,15 +164,14 @@ public class Rudy {
 			}
 			// Adjust our position
 			if (dy != 0)
-				locy += dy;
-			//
-			// Next we adjust dy to allow for the force
-			// (acceleration) of gravity
-			//
+				if(locy != g.height())
+					locy += dy;
+				if(locy == g.height())
+					locy = g.height();
+			
+			
 			dy += GRAVITY;
-			//
-			// Also, check if we're on the ground (or at the
-			// top of the screen)
+			
 			if (g.onGround(collisionBox())) {
 				dy = 0;
 				state = STAND;

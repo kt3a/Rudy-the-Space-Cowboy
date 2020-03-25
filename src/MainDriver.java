@@ -102,7 +102,7 @@ public class MainDriver extends Application{
 		gc.setFill( Color.rgb(143, 140, 137) );
 		gc.fillRect( 0, 0, WIDTH, HEIGHT);
 		
-		timer.render(gc);
+		//timer.render(gc);
 		lives.render(gc);
 		rudy.render(gc);
 		bult.render(gc);
@@ -191,7 +191,7 @@ public class MainDriver extends Application{
 	
 	public void checkAlienHit() {
 
-		if(bult.wasReleased && (bult.collisionBox().intersects(alien.collisionBox()))) {
+		if(bult.wasReleased && (bult.collisionBox().intersects(alien.collisionBox())) && alien.active) {
 			bult.hitAlien = true;
 			alien.wasHit = true;
 			bult.wasReleased = false;
@@ -199,23 +199,23 @@ public class MainDriver extends Application{
 	}
 	
 	public void checkRudyHit() {
-		if(alien.collisionBox().intersects(rudy.collisionBox())) {
+		if(alien.collisionBox().intersects(rudy.collisionBox()) && alien.active) {
 			rudy.wasHit = true;
 			lives.remove = true;
 			lives.checkLives();
+			
 						
 		}
 	}
 	
 	public void update() {
 		rudy.update();
-		timer.update();	//this updates the hat timer 
+		//timer.update();	//this updates the hat timer 
 		checkAlienHit();
 		checkRudyHit();
 		
 		if (bult.wasReleased) {
 				bult.update();	
-			
 		}
 		
 		
@@ -257,11 +257,22 @@ public class MainDriver extends Application{
 			if( i > 10 && i <30)
 				grid.setBlock(i,25);
 			
-//			if( i > 10 && i <30)
-//				grid.setBlock(i,30);
+
 			
-			if( i > 2 && i <30)
+			if( i > 2 && i < 15)
 				grid.setBlock(i,30);
+			if( i > 30 && i < 40)
+				grid.setBlock(i,30);
+			
+			if( i > 20 && i < 30)
+				grid.setBlock(i,35);
+			
+			if( i > 30 && i < 35)
+				grid.setBlock(i,37);
+			if( i > 35 && i < 40)
+				grid.setBlock(i,39);
+			
+			
 			
 			//stairs
 			if( i > 79 && i <84)

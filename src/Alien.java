@@ -22,7 +22,7 @@ public class Alien {
 	boolean wasHit = false;
 	boolean active = true, visible = false;
 	
-	int waitPeriod = 32; 	//wait for 2 frames to see the death animation
+	int waitPeriod = 10; 	//wait for 2 frames to see the death animation
 
 	public Alien(Grid g, int x, int y, Image[] images) {
 		locx = x;
@@ -34,6 +34,9 @@ public class Alien {
 
 	public void update() {
 
+		if(!active ) {		//removes the alien 
+			return;
+		}
 		if (dy > 0) {
 			grid.moveDown(collisionBox(), dy);
 			locy += dy;
