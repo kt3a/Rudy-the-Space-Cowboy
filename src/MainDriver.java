@@ -40,7 +40,8 @@ public class MainDriver extends Application{
 	Image cowboys[] = new Image[4];
 	Image timerImages[] = new Image[2];
 	Image aliens[] = new Image[2];
-	Image cowboyLeft, cowboyRight, cowboyShootRight, cowboyShootLeft,alienAlive,alienDead,hat,sun,heart;
+	Image cowboyLeft, cowboyRight, cowboyShootRight, cowboyShootLeft,
+	alienAlive,alienDead,hat,sun,heart, background;
 	Alien alien;
 	Bullet bult; 
 	Lives lives;               
@@ -64,6 +65,8 @@ public class MainDriver extends Application{
 		
 		heart = new Image("life.gif");
 		lives = new Lives(heart);
+		
+		background = new Image("Background.gif");
 		
 		hat = new Image("hat_60x60.png");
 		sun = new Image("sun_60x60.png");
@@ -99,6 +102,19 @@ public class MainDriver extends Application{
 	}
 
 	void render(GraphicsContext gc) {
+		
+//		gc.drawImage(background,0,0);
+//		gc.drawImage(background,0,300);
+//		gc.drawImage(background,0,600);
+//
+//		gc.drawImage(background,300,0);
+//		gc.drawImage(background,600,0);
+//		gc.drawImage(background,900,0);
+//		
+//		gc.drawImage(background,300,300);
+//		gc.drawImage(background,600,300);
+//		gc.drawImage(background,900,300);
+
 		gc.setFill( Color.rgb(143, 140, 137) );
 		gc.fillRect( 0, 0, WIDTH, HEIGHT);
 		
@@ -130,7 +146,18 @@ public class MainDriver extends Application{
 		}
 		
 		
-		//up and down scrolling
+		//up
+		if ((rudy.locy) < (vtop+DOWNSCROLL))		
+		{
+			vtop = rudy.locy -DOWNSCROLL;					
+			//grid height is 1125
+			
+			if (vtop < 0) {
+				vtop = 0;
+			}
+		}
+		
+		//down
 		if ((rudy.locy) > (vtop+VHEIGHT-DOWNSCROLL))		
 		{
 			vtop = rudy.locy - (VHEIGHT-DOWNSCROLL);					
