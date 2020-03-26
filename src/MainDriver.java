@@ -13,6 +13,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 //Katie Tooher and Amy Herrigan 
@@ -34,6 +35,9 @@ public class MainDriver extends Application{
 	
 	int waitPeriod = 4;
 	boolean wait = false;
+	int min = 100;
+	int max = 1990;
+	int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
 	
 	Grid grid;
 	Rudy rudy;
@@ -49,7 +53,7 @@ public class MainDriver extends Application{
 	int alienTicks = 100;
 	Bullet bult;
 	Lives lives;
-	Timer timer;
+	Timing timer;
 
 	MediaPlayer mP;
 
@@ -76,7 +80,7 @@ public class MainDriver extends Application{
 		sun = new Image("sun_60x60.png");
 		timerImages[0] = hat;
 		timerImages[1] = sun;
-		timer = new Timer(timerImages);
+		timer = new Timing(timerImages);
 		
 		
 		cowboyRight = new Image("rudy80.gif");
@@ -95,7 +99,8 @@ public class MainDriver extends Application{
 		aliens[0] = alienAlive;
 		aliens[1] = alienDead;
 		for(int i = 0; i < totalAliens; i++) {
-			alienA[i] = new Alien(grid, 100, 270, aliens);
+			alienA[i] = new Alien(grid, randomNum, 270, aliens);
+			randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
 		}
 		
 		shipCreate();		//this method creates the ship platform grid to run around on.
@@ -124,7 +129,7 @@ public class MainDriver extends Application{
 		gc.setFill( Color.rgb(143, 140, 137) );
 		gc.fillRect( 0, 0, WIDTH, HEIGHT);
 		
-		//timer.render(gc);
+		
 		lives.render(gc);
 		rudy.render(gc);
 		bult.render(gc);
@@ -132,6 +137,9 @@ public class MainDriver extends Application{
 		for(int i = 0; i < numAliens; i++) {
 			alienA[i].render(gc);
 		}
+		
+		lives.render(gc);
+		timer.render(gc);
 
 	}
 
@@ -308,19 +316,12 @@ public class MainDriver extends Application{
 				grid.setBlock(i,35);
 			
 			if( i > 30 && i < 35)
-				grid.setBlock(i,37);
-			if( i > 35 && i < 40)
-				grid.setBlock(i,39);
+				grid.setBlock(i,38);
+//			if( i > 35 && i < 40)
+//				grid.setBlock(i,39);
 			
 			
 			
-			//stairs
-			if( i > 79 && i <84)
-				grid.setBlock(i,20);
-			if( i > 82 && i <87)
-				grid.setBlock(i,17);
-			if( i > 85 && i <90)
-				grid.setBlock(i,13);
 			
 		}
 
@@ -371,6 +372,7 @@ public class MainDriver extends Application{
 
 		// Initial setup
 		initialize();
+		timer.Plsupdate();
 		setHandlers(theScene);
 
 		// Setup and start animation loop (Timeline)

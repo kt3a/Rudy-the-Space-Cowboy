@@ -15,7 +15,7 @@ public class Lives {
 	boolean remove = false;
 	boolean hearts = true;
 	
-	int waitPeriod = 15;		//they have 60 frames to get away before loosing another life
+	int waitPeriod = 25;		//they have 60 frames to get away before loosing another life
 	
 	boolean[] heartss = {true,true,true};
 	
@@ -25,6 +25,8 @@ public class Lives {
 	}
 	
 	public void render(GraphicsContext gc) {
+		gc.setFill(Color.rgb(187, 193, 201));
+		gc.fillRect(10,20,150,60);
 		gc.setFill(Color.BLACK);
 		gc.setFont(font);
 		gc.fillText("Lives: ", 15, 45);
@@ -43,7 +45,7 @@ public class Lives {
 	public void checkLives() {
 		//System.out.println("left value" + left);
 		if(remove && left > 0) {
-			if(waitPeriod == 60) {
+			if(waitPeriod == 25) {
 				left -=1;
 				heartss[left] = false;
 				//System.out.println("HERE");
@@ -56,7 +58,7 @@ public class Lives {
 		}
 		
 		if(waitPeriod == 0) {	//reset the wait period
-			waitPeriod = 60;
+			waitPeriod = 25;
 		}
 	}
 
