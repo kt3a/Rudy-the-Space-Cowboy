@@ -20,7 +20,7 @@ public class Alien {
 	public int dx = 4, dy = 0;  //he should start slowly moving
 
 	boolean wasHit = false;
-	boolean active = true, visible = false;
+	boolean active = false, visible = false;
 	
 	int waitPeriod = 10; 	//wait for 2 frames to see the death animation
 
@@ -64,11 +64,11 @@ public class Alien {
 	public void render(GraphicsContext gc) {
 		
 		if(active) {
-			gc.drawImage(alienAlive, locx, locy);
+			gc.drawImage(alienAlive, locx-MainDriver.vleft, locy-MainDriver.vtop);
 		}
 		
 		if(wasHit) {
-			gc.drawImage(alienDead, locx, locy);
+			gc.drawImage(alienDead, locx-MainDriver.vleft, locy-MainDriver.vtop);
 			waitPeriod -= 1;
 			
 			if(waitPeriod ==0) {

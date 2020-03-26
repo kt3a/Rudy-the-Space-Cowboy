@@ -40,7 +40,7 @@ public class Bullet {
 
 	public void update() {
 		if (dir == 2) { // go right
-			if (locx >= 900) {
+			if (locx >= 1980) {
 				hitWall = true;
 				wasReleased = false;
 

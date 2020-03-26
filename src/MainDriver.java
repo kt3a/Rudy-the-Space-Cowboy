@@ -24,7 +24,7 @@ public class MainDriver extends Application{
 	final static int WIDTH = 2000;
 	final static int HEIGHT = 1500;
 	final int FPS = 30; // frames per second
-	public static final int SCROLL = 100;  // Set edge limit for scrolling
+	public static final int SCROLL = 200;  // Set edge limit for scrolling
 	public static final int DOWNSCROLL = 100;  // Set edge limit for scrolling
 	
 	public static final int VWIDTH = 1000;
@@ -42,9 +42,12 @@ public class MainDriver extends Application{
 	Image aliens[] = new Image[2];
 	Image cowboyLeft, cowboyRight, cowboyShootRight, cowboyShootLeft,
 	alienAlive,alienDead,hat,sun,heart, background;
-	Alien alien;
-	Bullet bult; 
-	Lives lives;               
+	int totalAliens = 2;
+	int numAliens = 0;
+	Alien[] alienA = new Alien[totalAliens];
+	int a = 50;
+	Bullet bult;
+	Lives lives;
 	Timer timer;
 
 	MediaPlayer mP;
@@ -90,7 +93,9 @@ public class MainDriver extends Application{
 		alienDead = new Image("aliendeath80.gif");
 		aliens[0] = alienAlive;
 		aliens[1] = alienDead;
-		alien = new Alien(grid,100, 290, aliens);
+		for(int i = 0; i < totalAliens; i++) {
+			alienA[i] = new Alien(grid, 100, 290, aliens);
+		}
 		
 		shipCreate();		//this method creates the ship platform grid to run around on.
 		
@@ -123,8 +128,9 @@ public class MainDriver extends Application{
 		rudy.render(gc);
 		bult.render(gc);
 		grid.render(gc);
-		alien.render(gc);
-
+		for(int i = 0; i < numAliens; i++) {
+			alienA[i].render(gc);
+		}
 
 	}
 
@@ -139,7 +145,6 @@ public class MainDriver extends Application{
 		}
 		if ((rudy.locx) > (vleft+VWIDTH-SCROLL))		//if rudy's x location  is greater than the left view+ the (view width - scroll constant)
 		{
-			
 			vleft = rudy.locx-VWIDTH+SCROLL;			//left view is set to rudy's location - vwidth+scroll
 			if (vleft > (grid.width()-VWIDTH))		
 				vleft = grid.width()-VWIDTH;
@@ -217,21 +222,22 @@ public class MainDriver extends Application{
 	}
 	
 	public void checkAlienHit() {
-
-		if(bult.wasReleased && (bult.collisionBox().intersects(alien.collisionBox())) && alien.active) {
-			bult.hitAlien = true;
-			alien.wasHit = true;
-			bult.wasReleased = false;
+		for(int i = 0; i < numAliens; i++) {
+			if(bult.wasReleased && (bult.collisionBox().intersects(alienA[i].collisionBox())) && alienA[i].active) {
+				bult.hitAlien = true;
+				alienA[i].wasHit = true;
+				bult.wasReleased = false;
+			}
 		}
 	}
 	
 	public void checkRudyHit() {
-		if(alien.collisionBox().intersects(rudy.collisionBox()) && alien.active) {
-			rudy.wasHit = true;
-			lives.remove = true;
-			lives.checkLives();
-			
-						
+		for(int i = 0; i < numAliens; i++) {
+			if(alienA[i].collisionBox().intersects(rudy.collisionBox()) && alienA[i].active) {
+				rudy.wasHit = true;
+				lives.remove = true;
+				lives.checkLives();
+			}
 		}
 	}
 	
@@ -245,8 +251,14 @@ public class MainDriver extends Application{
 				bult.update();	
 		}
 		
-		
-		alien.update();
+		if (numAliens < totalAliens && a%100 == 0) {
+			alienA[numAliens].active = true;
+			numAliens++;
+		}
+		a++;
+		for(int i = 0; i < numAliens; i++) {
+			alienA[i].update();
+		}
 		checkScrolling();
 	}
 
