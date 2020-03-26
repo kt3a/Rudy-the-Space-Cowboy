@@ -29,7 +29,7 @@ public class Timing {
 	
 	public void render(GraphicsContext gc) {
 		gc.setFill(Color.BLACK);
-		gc.fillText("Time: " + printable, 15, 74);
+		gc.fillText("Time: " + printable, 15, 75);
 		
 //		gc.setFill(Color.BLUE);
 		
@@ -60,7 +60,5 @@ public class Timing {
 		}, delay, period);
 	}
 	
-//	public String getTime() {
-//		return Integer.toString(time/60);
-//	}
+
 }

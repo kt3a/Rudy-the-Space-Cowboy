@@ -41,11 +41,16 @@ public class MainDriver extends Application{
 	
 	Grid grid;
 	Rudy rudy;
+	ShipControler controls;
+	Image controlImages[] = new Image[5];
 	Image cowboys[] = new Image[4];
 	Image timerImages[] = new Image[2];
 	Image aliens[] = new Image[2];
+	
 	Image cowboyLeft, cowboyRight, cowboyShootRight, cowboyShootLeft,
-	alienAlive,alienDead,hat,sun,heart, background;
+	alienAlive,alienDead,hat,sun,heart, background,
+	c1,c2,c3,c4,c5;
+	
 	int totalAliens = 20;
 	int numAliens = 0;
 	Alien[] alienA = new Alien[totalAliens];
@@ -104,6 +109,17 @@ public class MainDriver extends Application{
 		}
 		
 		shipCreate();		//this method creates the ship platform grid to run around on.
+		c1 = new Image("Control1.gif");
+		c2 = new Image("Control2.gif");
+		c3 = new Image("Control3.gif");
+		c4 = new Image("Control4.gif");
+		c5 = new Image("Control5.gif");
+		controlImages[0] = c1;
+		controlImages[1] = c2;
+		controlImages[2] = c3;
+		controlImages[3] = c4;
+		controlImages[4] = c5;
+		controls = new ShipControler(controlImages);
 		
 		Media song = new Media(ClassLoader.getSystemResource("TunnelChase.mp3").toString());
 		mP = new MediaPlayer(song);
@@ -129,18 +145,19 @@ public class MainDriver extends Application{
 		gc.setFill( Color.rgb(143, 140, 137) );
 		gc.fillRect( 0, 0, WIDTH, HEIGHT);
 		
-		
+	
 		lives.render(gc);
-		rudy.render(gc);
+		controls.render(gc);
 		bult.render(gc);
+		rudy.render(gc);
 		grid.render(gc);
 		for(int i = 0; i < numAliens; i++) {
 			alienA[i].render(gc);
 		}
 		
-		lives.render(gc);
+		
 		timer.render(gc);
-
+		
 	}
 
 	void checkScrolling()
@@ -211,7 +228,9 @@ public class MainDriver extends Application{
 						if(rudy.right)
 							bult.dir = 2;
 						
-						//bult.dir = 1;
+					case E:
+						if(rudy.collisionBox().intersects(controls.collisionBox()))
+							controls.repairing = true;
 						
 					default:
 						break;
@@ -250,11 +269,20 @@ public class MainDriver extends Application{
 		}
 	}
 	
+	public void checkControlsHit() {
+		for(int i = 0; i < numAliens; i++) {
+			if(alienA[i].collisionBox().intersects(controls.collisionBox()) && alienA[i].active) {
+				controls.wasHit = true;
+				
+			}
+		}
+	}
 	public void update() {
 		rudy.update();
-		//timer.update();	//this updates the hat timer 
 		checkAlienHit();
 		checkRudyHit();
+		checkControlsHit();		//if the aliens smack the control box then health decreases
+		controls.update();
 		
 		if (bult.wasReleased) {
 				bult.update();	
@@ -329,32 +357,32 @@ public class MainDriver extends Application{
 		for (int i = 0; i < Grid.MHEIGHT ; i++) {
 			if (i > 5 && i <Grid.MHEIGHT-2) {
 				grid.setBlock(2, i);
-				grid.setBlock(90, i);
+				grid.setBlock(99, i);
 			}
 			
 		}
 		
-		//vertical platforms 
-		for (int i = 0; i < Grid.MHEIGHT; i ++) {
-			if (i > 20 && i < Grid.MHEIGHT - 2) {
-				grid.setBlock(80,i);
-				
-				
-			}
-		}
+//		//vertical platforms 
+//		for (int i = 0; i < Grid.MHEIGHT; i ++) {
+//			if (i > 20 && i < Grid.MHEIGHT - 2) {
+//				grid.setBlock(80,i);
+//				
+//				
+//			}
+//		}
 		
 		//stairs
-		for (int i = 0; i < Grid.MHEIGHT; i ++) {
-			if (i > 17 && i < Grid.MHEIGHT - 2) {
-				grid.setBlock(83,i);
-			}
-		}
-		
-		for (int i = 0; i < Grid.MHEIGHT; i ++) {
-			if (i > 13 && i < Grid.MHEIGHT - 2) {
-				grid.setBlock(86,i);
-			}
-		}
+//		for (int i = 0; i < Grid.MHEIGHT; i ++) {
+//			if (i > 17 && i < Grid.MHEIGHT - 2) {
+//				grid.setBlock(83,i);
+//			}
+//		}
+//		
+//		for (int i = 0; i < Grid.MHEIGHT; i ++) {
+//			if (i > 13 && i < Grid.MHEIGHT - 2) {
+//				grid.setBlock(86,i);
+//			}
+//		}
 
 	}
 

@@ -26,7 +26,8 @@ public class Lives {
 	
 	public void render(GraphicsContext gc) {
 		gc.setFill(Color.rgb(187, 193, 201));
-		gc.fillRect(10,20,150,60);
+		gc.fillRect(10,20, 200, 90);
+		
 		gc.setFill(Color.BLACK);
 		gc.setFont(font);
 		gc.fillText("Lives: ", 15, 45);
