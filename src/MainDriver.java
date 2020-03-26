@@ -42,10 +42,11 @@ public class MainDriver extends Application{
 	Image aliens[] = new Image[2];
 	Image cowboyLeft, cowboyRight, cowboyShootRight, cowboyShootLeft,
 	alienAlive,alienDead,hat,sun,heart, background;
-	int totalAliens = 2;
+	int totalAliens = 20;
 	int numAliens = 0;
 	Alien[] alienA = new Alien[totalAliens];
-	int a = 50;
+	int a = 50; //starting ticks for alien
+	int alienTicks = 100;
 	Bullet bult;
 	Lives lives;
 	Timer timer;
@@ -94,7 +95,7 @@ public class MainDriver extends Application{
 		aliens[0] = alienAlive;
 		aliens[1] = alienDead;
 		for(int i = 0; i < totalAliens; i++) {
-			alienA[i] = new Alien(grid, 100, 290, aliens);
+			alienA[i] = new Alien(grid, 100, 270, aliens);
 		}
 		
 		shipCreate();		//this method creates the ship platform grid to run around on.
@@ -251,7 +252,7 @@ public class MainDriver extends Application{
 				bult.update();	
 		}
 		
-		if (numAliens < totalAliens && a%100 == 0) {
+		if (numAliens < totalAliens && a%alienTicks == 0) {
 			alienA[numAliens].active = true;
 			numAliens++;
 		}

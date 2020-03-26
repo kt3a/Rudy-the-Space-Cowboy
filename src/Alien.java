@@ -17,7 +17,7 @@ public class Alien {
 	public int height = 80;
 
 	static final int GRAVITY = 3;
-	public int dx = 4, dy = 0;  //he should start slowly moving
+	public int dx = 4, dy = 2;  //he should start slowly moving
 
 	boolean wasHit = false;
 	boolean active = false, visible = false;
@@ -40,6 +40,13 @@ public class Alien {
 		if (dy > 0) {
 			grid.moveDown(collisionBox(), dy);
 			locy += dy;
+			if (grid.onGround(collisionBox())) {
+				dy = 0;
+			} else if (grid.atTop(collisionBox())) {
+				dy = 0;
+			}
+		} else if (!grid.onGround(collisionBox())) {
+			dy = 5;
 		} else {
 			if (dx > 0 && wasHit != true) {
 				dx = grid.moveRight(collisionBox(), dx);

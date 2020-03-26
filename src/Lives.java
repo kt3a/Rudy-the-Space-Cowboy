@@ -15,7 +15,7 @@ public class Lives {
 	boolean remove = false;
 	boolean hearts = true;
 	
-	int waitPeriod = 60;		//they have 60 frames to get away before loosing another life
+	int waitPeriod = 15;		//they have 60 frames to get away before loosing another life
 	
 	boolean[] heartss = {true,true,true};
 	
