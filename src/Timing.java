@@ -15,7 +15,7 @@ public class Timing {
 	int x = 10;
 	
 	Grid grid;
-	Timer timer = new Timer();
+	Timer timer = new Timer(true);
 	int delay = 1000;
     int period = 1000;
     
