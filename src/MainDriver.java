@@ -38,6 +38,7 @@ public class MainDriver extends Application{
 	int min = 100;
 	int max = 1990;
 	int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
+	boolean end = false;
 	
 	Grid grid;
 	Rudy rudy;
@@ -157,6 +158,14 @@ public class MainDriver extends Application{
 		
 		
 		timer.render(gc);
+		
+		if (lives.left < 1 || controls.healthlevel < 1) {
+			gc.setFill(Color.BLACK);
+			gc.fillRect(0, 0, WIDTH, HEIGHT);
+			Image gameover = new Image("GameOver2.gif");
+			gc.drawImage(gameover, 0, 0);
+			
+		}
 		
 	}
 
