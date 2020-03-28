@@ -40,7 +40,10 @@ public class Alien {
 		if (dy > 0) {
 			grid.moveDown(collisionBox(), dy);
 			
+			if (dy > Grid.CELLSIZE - 1)
+				dy = Grid.CELLSIZE - 1;
 			locy += dy;
+			
 			
 			
 			if (grid.onGround(collisionBox())) {
@@ -50,7 +53,9 @@ public class Alien {
 			}
 		} else if (!grid.onGround(collisionBox())) {
 
-			dy += 5;
+			dy += 10;
+			if (dy > Grid.CELLSIZE - 1)
+				dy = Grid.CELLSIZE - 1;
 			
 		} else {
 			if (dx > 0 && wasHit != true) {

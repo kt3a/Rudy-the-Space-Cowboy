@@ -57,7 +57,7 @@ public class MainDriver extends Application{
 	alienAlive,alienDead,hat,sun,heart, background,
 	c1,c2,c3,c4,c5,start,win;
 	
-	int totalAliens = 20;
+	int totalAliens = 30;
 	int numAliens = 0;
 	Alien[] alienA = new Alien[totalAliens];
 	int a = 50; //starting ticks for alien
