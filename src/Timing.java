@@ -8,7 +8,7 @@ import java.util.TimerTask;
 
 public class Timing {
 	
-	int interval = 360;	//6 mins for this level
+	int interval = 120;	//2 mins for this level
 	Font font;
 	Image hat,sun;
 	
@@ -31,18 +31,7 @@ public class Timing {
 		gc.setFill(Color.BLACK);
 		gc.fillText("Time: " + printable, 15, 75);
 		
-//		gc.setFill(Color.BLUE);
-		
-//		for(int i = 0; i < 30; i++) {
-//			if(i > 3 && i < 1000);
-//			grid.setBlock(i,3);
-//		}
-//		gc.fillRect(30,75,1300,20);
-//		
-//		gc.drawImage(hat,x ,60);
-//		gc.drawImage(sun,1310, 47);
-//		
-		
+	
 	}
 	
 	private int setInterval() {

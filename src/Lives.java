@@ -40,6 +40,10 @@ public class Lives {
 		if(heartss[2])
 			gc.drawImage(life, 100, 5);
 		
+		gc.setFill(Color.rgb(140,25,255));
+		gc.fillRect(800,20,200,30);
+		gc.setFill(Color.BLACK);
+		gc.fillText("Score: " + MainDriver.score, 800, 40);
 		
 	}
 	

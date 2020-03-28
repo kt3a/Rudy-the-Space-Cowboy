@@ -11,6 +11,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.util.concurrent.ThreadLocalRandom;
@@ -29,7 +31,7 @@ public class MainDriver extends Application{
 	public static final int DOWNSCROLL = 100;  // Set edge limit for scrolling
 	
 	public static final int VWIDTH = 1000;
-	final static int VHEIGHT = 600;
+	final static int VHEIGHT = 800;
 	public static int vleft = 0;
 	public static int vtop = 0;
 	
@@ -38,10 +40,13 @@ public class MainDriver extends Application{
 	int min = 100;
 	int max = 1990;
 	int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
-	boolean end = false;
+	//boolean end = false;
+	boolean startMenu = false;
+	static int score;
 	
 	Grid grid;
 	Rudy rudy;
+	Font font;
 	ShipControler controls;
 	Image controlImages[] = new Image[5];
 	Image cowboys[] = new Image[4];
@@ -50,7 +55,7 @@ public class MainDriver extends Application{
 	
 	Image cowboyLeft, cowboyRight, cowboyShootRight, cowboyShootLeft,
 	alienAlive,alienDead,hat,sun,heart, background,
-	c1,c2,c3,c4,c5;
+	c1,c2,c3,c4,c5,start,win;
 	
 	int totalAliens = 20;
 	int numAliens = 0;
@@ -69,9 +74,11 @@ public class MainDriver extends Application{
 	}
 
 	void initialize() {
-		//create the classes for the characters 
-		//should just be rudy and the aliens
-
+		font = Font.font("Impact", FontWeight.BOLD, 60);
+		startMenu = true;
+		start = new Image("StartScreen.gif");
+		win = new Image("winScreen.gif");
+		
 		grid = new Grid();
 		
 		
@@ -126,7 +133,6 @@ public class MainDriver extends Application{
 		mP = new MediaPlayer(song);
 		mP.play();
 
-
 	}
 
 	void render(GraphicsContext gc) {
@@ -146,12 +152,12 @@ public class MainDriver extends Application{
 		gc.setFill( Color.rgb(143, 140, 137) );
 		gc.fillRect( 0, 0, WIDTH, HEIGHT);
 		
-	
+		grid.render(gc);
 		lives.render(gc);
 		controls.render(gc);
 		bult.render(gc);
 		rudy.render(gc);
-		grid.render(gc);
+		
 		for(int i = 0; i < numAliens; i++) {
 			alienA[i].render(gc);
 		}
@@ -159,12 +165,30 @@ public class MainDriver extends Application{
 		
 		timer.render(gc);
 		
+		if(startMenu) {
+			gc.setFill(Color.rgb(47, 113, 128));
+			gc.fillRect(0,0,WIDTH,HEIGHT);
+			gc.drawImage(start,90,50);
+			
+		}
+		
+		if(timer.interval <= 0) {
+			gc.setFill(Color.rgb(37, 29, 45));
+			gc.fillRect(0,0,WIDTH,HEIGHT);
+			gc.drawImage(win,90,50);
+			gc.setFill(Color.RED);
+			gc.setFont(font);
+			gc.fillText("YOU WIN!",500,200);
+		}
+		
 		if (lives.left < 1 || controls.healthlevel < 1) {
 			gc.setFill(Color.BLACK);
 			gc.fillRect(0, 0, WIDTH, HEIGHT);
 			Image gameover = new Image("GameOver2.gif");
-			gc.drawImage(gameover, 0, 0);
-			
+			gc.drawImage(gameover, 150, 200);
+			gc.setFill(Color.RED);
+			gc.setFont(font);
+			gc.fillText("Score: " + score,500,500);
 		}
 		
 	}
@@ -237,7 +261,7 @@ public class MainDriver extends Application{
 						if(rudy.right)
 							bult.dir = 2;
 						
-					case E:
+					case E:			//this is for the ship controller repairing
 						if(rudy.collisionBox().intersects(controls.collisionBox()))
 							controls.repairing = true;
 						
@@ -255,6 +279,13 @@ public class MainDriver extends Application{
 
 				}
 				);
+		
+		scene.setOnMousePressed(e -> {
+			if (startMenu) {
+				startMenu = false;
+			}
+			
+		});
 
 	}
 	
@@ -264,6 +295,7 @@ public class MainDriver extends Application{
 				bult.hitAlien = true;
 				alienA[i].wasHit = true;
 				bult.wasReleased = false;
+				score += 50;
 			}
 		}
 	}
@@ -335,11 +367,17 @@ public class MainDriver extends Application{
 				grid.setBlock(i,20);
 			
 			
-			if (i > 2 && i <14) {
+			if (i > 2 && i <14) 
 				grid.setBlock(i,20);
-			}
+			if (i > 60 && i < 80) 
+				grid.setBlock(i,20);
 			
-			if( i > 10 && i <30)
+			
+			if( i > 10 && i < 30)
+				grid.setBlock(i,25);
+			if( i > 45 && i < 60)
+				grid.setBlock(i,25);
+			if( i > 80 && i < 100)
 				grid.setBlock(i,25);
 			
 
@@ -348,14 +386,28 @@ public class MainDriver extends Application{
 				grid.setBlock(i,30);
 			if( i > 30 && i < 40)
 				grid.setBlock(i,30);
+			if( i > 50 && i < 55)
+				grid.setBlock(i,30);
+			
+			
+			
+			if( i > 80 && i < 100)
+				grid.setBlock(i,33);
 			
 			if( i > 20 && i < 30)
 				grid.setBlock(i,35);
 			
-			if( i > 30 && i < 35)
+			
+			
+			if( i > 32 && i < 37)
 				grid.setBlock(i,38);
-//			if( i > 35 && i < 40)
-//				grid.setBlock(i,39);
+			if( i > 14 && i < 19)
+				grid.setBlock(i,38);
+			if( i > 70 && i < 80)
+				grid.setBlock(i,38);
+			
+
+			
 			
 			
 			
@@ -393,6 +445,8 @@ public class MainDriver extends Application{
 //			}
 //		}
 
+		
+		
 	}
 
 	@Override

@@ -66,7 +66,7 @@ public class Rudy {
 	public void render(GraphicsContext gc) {
 		if (right && shoots != 1) {
 			gc.drawImage(cowboyRight, locx-MainDriver.vleft, locy-MainDriver.vtop);
-			//System.out.println(locx+" "+ locy);
+			System.out.println(locx+" "+ locy);
 		}
 		
 		if(left && shoots!= 1) {
