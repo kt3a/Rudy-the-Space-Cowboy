@@ -386,8 +386,6 @@ public class MainDriver extends Application{
 				grid.setBlock(i,30);
 			if( i > 30 && i < 40)
 				grid.setBlock(i,30);
-			if( i > 50 && i < 55)
-				grid.setBlock(i,30);
 			
 			
 			
@@ -396,14 +394,21 @@ public class MainDriver extends Application{
 			
 			if( i > 20 && i < 30)
 				grid.setBlock(i,35);
-			
+			if( i > 50 && i < 65)
+				grid.setBlock(i,35);
 			
 			
 			if( i > 32 && i < 37)
 				grid.setBlock(i,38);
 			if( i > 14 && i < 19)
 				grid.setBlock(i,38);
-			if( i > 70 && i < 80)
+			
+			if( i > 45 && i < 50)
+				grid.setBlock(i,38);
+			if( i > 65 && i < 69)
+				grid.setBlock(i,38);
+			
+			if( i > 74 && i < 80)
 				grid.setBlock(i,38);
 			
 

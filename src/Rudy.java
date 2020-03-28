@@ -9,7 +9,7 @@ public class Rudy {
 
 	public int locx;
 	public int locy;
-	public Grid g;
+	public Grid grid;
 	static final int STAND = 0;
 	static final int JUMP = 1;
 	static final int GRAVITY = 3;
@@ -45,13 +45,13 @@ public class Rudy {
 	boolean wasHit = false;
 
 	
-	public Rudy(Grid grid, int x, int y, Image[] images) {
+	public Rudy(Grid thegrid, int x, int y, Image[] images) {
 		// constructor
 		// We use locx, locy is the top-left corner of sprite
 
 		locx = x;
 		locy = y;
-		g = grid;
+		grid = thegrid;
 		state = STAND;
 		cowboyRight = images[0];
 		cowboyLeft = images[1];
@@ -139,14 +139,11 @@ public class Rudy {
 
 	public void updatePosition() {
 
-		// Note: The g in the following code is the
-		// game Grid, not a Graphics context
-		//
-		// first handle sideways movement
+		
 		if (dx > 0) {
-			dx = g.moveRight(collisionBox(), dx);
+			dx = grid.moveRight(collisionBox(), dx);
 		} else if (dx < 0) {
-			dx = -g.moveLeft(collisionBox(), -dx);
+			dx = -grid.moveLeft(collisionBox(), -dx);
 		}
 		if (dx != 0)
 			locx += dx;
@@ -155,28 +152,31 @@ public class Rudy {
 			// current speed) without running into
 			// something
 			if (dy > 0) {
-
-				dy = g.moveDown(collisionBox(), dy);
+				System.out.println("dy value: "+dy);
+				dy = grid.moveDown(collisionBox(), dy);
 
 			} else if (dy < 0) {
-				dy = -g.moveUp(collisionBox(), -dy);
+				dy = -grid.moveUp(collisionBox(), -dy);
 			}
 			// Adjust our position
 			if (dy != 0)
-				if(locy != g.height())
+				if(locy != grid.height())
 					locy += dy;
-				if(locy == g.height())
-					locy = g.height();
-			
+				if(locy == grid.height())
+					locy = grid.height();
+
 			dy += GRAVITY;
+			if (dy > Grid.CELLSIZE - 1)
+				dy = Grid.CELLSIZE - 1;
+
 			
-			if (g.onGround(collisionBox())) {
+			if (grid.onGround(collisionBox())) {
 				dy = 0;
 				state = STAND;
-			} else if (g.atTop(collisionBox())) {
+			} else if (grid.atTop(collisionBox())) {
 				dy = 0;
 			}
-		} else if (!g.onGround(collisionBox()))
+		} else if (!grid.onGround(collisionBox()))
 			state = JUMP;
 	}
 	
