@@ -39,15 +39,19 @@ public class Alien {
 		}
 		if (dy > 0) {
 			grid.moveDown(collisionBox(), dy);
+			
 			locy += dy;
+			
+			
 			if (grid.onGround(collisionBox())) {
 				dy = 0;
 			} else if (grid.atTop(collisionBox())) {
 				dy = 0;
 			}
 		} else if (!grid.onGround(collisionBox())) {
-			//dy += GRAVITY;
+
 			dy += 5;
+			
 		} else {
 			if (dx > 0 && wasHit != true) {
 				dx = grid.moveRight(collisionBox(), dx);
